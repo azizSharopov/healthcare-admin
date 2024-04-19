@@ -259,47 +259,22 @@ const EcommerceCustomers = () => {
         enableSorting: false,
       },
       {
-        header: "Customer",
-        accessorKey: "customer",
+        header: <input type="checkbox" id="checkBoxAll" className="form-check-input" onClick={() => checkedAll()} />,
+        cell: (cell: any) => {
+          return <input type="checkbox" className="customerCheckBox form-check-input" value={cell.getValue()} onChange={() => deleteCheckbox()} />;
+        },
+        id: '#',
+        accessorKey: 'id',
         enableColumnFilter: false,
+        enableSorting: false,
       },
       {
-        header: "Email",
+        header: "아이디",
         accessorKey: "email",
         enableColumnFilter: false,
       },
       {
-        header: "Phone",
-        accessorKey: "phone",
-        enableColumnFilter: false,
-      },
-      {
-        header: "Joining Date",
-        accessorKey: "date",
-        enableColumnFilter: false,
-        cell: (cell: any) => (
-          <>
-            {handleValidDate(cell.getValue())}
-          </>
-        ),
-      },
-      {
-        header: "Status",
-        accessorKey: "status",
-        enableColumnFilter: false,
-        cell: (cell: any) => {
-          switch (cell.getValue()) {
-            case "Active":
-              return <span className="badge text-uppercase bg-success-subtle text-success"> {cell.getValue()} </span>;
-            case "Block":
-              return <span className="badge text-uppercase bg-danger-subtle text-danger"> {cell.getValue()} </span>;
-            default:
-              return <span className="badge text-uppercase bg-info-subtle text-info"> {cell.getValue()} </span>;
-          }
-        }
-      },
-      {
-        header: "Action",
+        header: "신상",
         cell: (cellProps: any) => {
           return (
             <ul className="list-inline hstack gap-2 mb-0">
@@ -314,6 +289,92 @@ const EcommerceCustomers = () => {
                 </Link>
               </li>
               <li className="list-inline-item" title="Remove">
+                <Link
+                  to="#"
+                  className="text-danger d-inline-block remove-item-btn"
+                  onClick={() => { const customerData = cellProps.row.original; onClickDelete(customerData); }}
+                >
+                  <i className="ri-delete-bin-5-fill fs-16"></i>
+                </Link>
+              </li>
+            </ul>
+          );
+        },
+      },
+      {
+        header: "이름",
+        accessorKey: "customer",
+        enableColumnFilter: false,
+      },
+     
+      {
+        header: "연락처",
+        accessorKey: "phone",
+        enableColumnFilter: false,
+      },
+      {
+        header: "회원그룹",
+        accessorKey: "company",
+        enableColumnFilter: false,
+      },
+      {
+        header: "가입경로",
+        accessorKey: "company",
+        enableColumnFilter: false,
+      },
+      {
+        header: "상태",
+        accessorKey: "status",
+        enableColumnFilter: false,
+        cell: (cell: any) => {
+          switch (cell.getValue()) {
+            case "Active":
+              return <span className="badge text-uppercase bg-success-subtle text-success"> {cell.getValue()} </span>;
+            case "Block":
+              return <span className="badge text-uppercase bg-danger-subtle text-danger"> {cell.getValue()} </span>;
+            default:
+              return <span className="badge text-uppercase bg-info-subtle text-info"> {cell.getValue()} </span>;
+          }
+        }
+      },
+      {
+        header: "등록일",
+        accessorKey: "date",
+        enableColumnFilter: false,
+        cell: (cell: any) => (
+          <>
+            {handleValidDate(cell.getValue())}
+          </>
+        ),
+      },
+     
+      {
+        header: "수정",
+        cell: (cellProps: any) => {
+          return (
+            <ul className="list-inline hstack gap-2 mb-0">
+              <li className="list-inline-item edit" title="Edit">
+                <Link
+                  to="#"
+                  className="text-primary d-inline-block edit-item-btn"
+                  onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
+                >
+
+                  <i className="ri-pencil-fill fs-16"></i>
+                </Link>
+              </li>
+             
+            </ul>
+          );
+        },
+      },
+      {
+        header: "삭제",
+        cell: (cellProps: any) => {
+          return (
+            <ul className="list-inline hstack gap-2 mb-0">
+             
+             <li className="list-inline-item" title="Remove">
                 <Link
                   to="#"
                   className="text-danger d-inline-block remove-item-btn"

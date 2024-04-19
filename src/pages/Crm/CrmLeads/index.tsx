@@ -216,8 +216,9 @@ const CrmLeads = () => {
       score: lead.score,
       phone: lead.phone,
       location: lead.location,
-      date: lead.date,
+      date: lead.date,         
       tags: lead.tags,
+      status: lead.status
     });
 
     setIsEdit(true);
@@ -228,6 +229,16 @@ const CrmLeads = () => {
   const [imgStore, setImgStore] = useState<any>();
   const [selectedImage, setSelectedImage] = useState<any>();
 
+  
+  const ledstatus = [
+    {
+      options: [
+        { label: "Status", value: "Status" },
+        { label: "Active", value: "Active" },
+        { label: "Block", value: "Block" },
+      ],
+    },
+  ];
   const handleClick = (item: any) => {
     const newData = [...imgStore, item];
     setImgStore(newData);
@@ -315,7 +326,7 @@ const CrmLeads = () => {
         enableSorting: false,
       },
       {
-        header: "Name",
+        header: "이름",
         accessorKey: "name",
         enableColumnFilter: false,
         cell: (cell: any) => (
@@ -345,28 +356,19 @@ const CrmLeads = () => {
           </>
         ),
       },
+    
       {
-        header: "Company",
-        accessorKey: "company",
-        enableColumnFilter: false,
-      },
-      {
-        header: "Leads Score",
+        header: "신상",
         accessorKey: "score",
         enableColumnFilter: false,
       },
       {
-        header: "Phone",
+        header: "연락처",
         accessorKey: "phone",
         enableColumnFilter: false,
       },
       {
-        header: "Location",
-        accessorKey: "location",
-        enableColumnFilter: false,
-      },
-      {
-        header: "Tags",
+        header: "회원그룹",
         accessorKey: "tags",
         enableColumnFilter: false,
         cell: (cell: any) => (
@@ -375,8 +377,29 @@ const CrmLeads = () => {
           </>
         ),
       },
+      
       {
-        header: "Create Date",
+        header: "가입경로",
+        accessorKey: "company",
+        enableColumnFilter: false,
+      },
+      {
+        header: "상태",
+        accessorKey: "status",
+        enableColumnFilter: false,
+        cell: (cell: any) => {
+          switch (cell.getValue()) {
+            case "Active":
+              return <span className="badge text-uppercase bg-success-subtle text-success"> {cell.getValue()} </span>;
+            case "Block":
+              return <span className="badge text-uppercase bg-danger-subtle text-danger"> {cell.getValue()} </span>;
+            default:
+              return <span className="badge text-uppercase bg-info-subtle text-info"> {cell.getValue()} </span>;
+          }
+        }
+      },
+      {
+        header: "등록일",
         accessorKey: "date",
         enableColumnFilter: false,
         cell: (cell: any) => (
@@ -385,30 +408,12 @@ const CrmLeads = () => {
           </>
         ),
       },
+    
       {
-        header: "Action",
+        header: "수정",
         cell: (cellProps: any) => {
           return (
             <ul className="list-inline hstack gap-2 mb-0">
-              <li className="list-inline-item edit" title="Call">
-                <Link
-                  to="#"
-                  className="text-muted d-inline-block"
-                // onClick={toggle}
-                >
-                  <i className="ri-phone-line fs-16"></i>
-                </Link>
-              </li>
-              <li className="list-inline-item edit" title="Message">
-                <Link to="#" className="text-muted d-inline-block">
-                  <i className="ri-question-answer-line fs-16"></i>
-                </Link>
-              </li>
-              <li className="list-inline-item" title="View">
-                <Link to="#">
-                  <i className="ri-eye-fill align-bottom text-muted"></i>
-                </Link>
-              </li>
               <li className="list-inline-item" title="Edit">
                 <Link className="edit-item-btn" to="#"
                   onClick={() => { const LeadData = cellProps.row.original; handleLeadClick(LeadData); }}
@@ -416,6 +421,17 @@ const CrmLeads = () => {
                   <i className="ri-pencil-fill align-bottom text-muted"></i>
                 </Link>
               </li>
+             
+            </ul>
+          );
+        },
+      },
+      {
+        header: "삭제",
+        cell: (cellProps: any) => {
+          return (
+            <ul className="list-inline hstack gap-2 mb-0">
+             
               <li className="list-inline-item" title="Delete">
                 <Link
                   className="remove-item-btn"
