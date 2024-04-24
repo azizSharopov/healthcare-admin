@@ -19,8 +19,7 @@ const Navdata = () => {
 
     // Apps
     const [isCalendar, setCalendar] = useState<boolean>(false);
-    const [isEmail, setEmail] = useState<boolean>(false);
-    const [isSubEmail, setSubEmail] = useState<boolean>(false);
+   
     const [isEcommerce, setIsEcommerce] = useState<boolean>(false);
     const [isProjects, setIsProjects] = useState<boolean>(false);
     const [isTasks, setIsTasks] = useState<boolean>(false);
@@ -29,9 +28,7 @@ const Navdata = () => {
     const [isInvoices, setIsInvoices] = useState<boolean>(false);
     const [isSupportTickets, setIsSupportTickets] = useState<boolean>(false);
     const [isNFTMarketplace, setIsNFTMarketplace] = useState<boolean>(false);
-    const [isJobs, setIsJobs] = useState<boolean>(false);
-    const [isJobList, setIsJobList] = useState<boolean>(false);
-    const [isCandidateList, setIsCandidateList] = useState<boolean>(false);
+ 
 
 
     // Authentication
@@ -226,10 +223,11 @@ const Navdata = () => {
                     parentId: "apps",
                     stateVariables: isTasks,
                     childItems: [
-                        { id: 1, label: "결제목록", link: "/apps-crm-leads" },
-                        { id: 1, label: "연간접속통계", link: "/apps-ecommerce-customers", parentId: "apps" },
-                        { id: 1, label: "회원목록", link: "/apps-tasks-list-view", parentId: "apps", },
-                        { id: 2, label: "탈퇴회원목록", link: "/apps-tasks-kanban", parentId: "apps", },
+                        // { id: 1, label: "결제목록", link: "/apps-crm-leads" },
+                        { id: 1, label: "회원목록", link: "/apps-ecommerce-customers", parentId: "apps" },
+                        { id: 2, label: "탈퇴회원목록", link: "/apps-ecommerce-customers", parentId: "apps" },
+                        // { id: 1, label: "회원목록", link: "/apps-tasks-list-view", parentId: "apps", },
+                        // { id: 2, label: "탈퇴회원목록", link: "/apps-tasks-kanban", parentId: "apps", },
             
                     ]
                 },
@@ -262,8 +260,8 @@ const Navdata = () => {
                     parentId: "apps",
                     stateVariables: isCrypto,
                     childItems: [
-                        
-                        { id: 1, label: "제휴사목록", link: "/apps-crypto-ico" },
+                        { id: 1, label: "제휴사목록", link: "/apps-ecommerce-customers", parentId: "apps" },
+                        // { id: 1, label: "제휴사목록", link: "/apps-crypto-ico" },
                     ]
                 },
                 {
@@ -278,8 +276,8 @@ const Navdata = () => {
                     parentId: "apps",
                     stateVariables: isInvoices,
                     childItems: [
-            
-                        { id: 1, label: "예약목록", link: "/apps-invoices-create" },
+                        { id: 1, label: "예약목록", link: "/apps-ecommerce-customers", parentId: "apps" },
+                        // { id: 1, label: "예약목록", link: "/apps-invoices-create" },
                         
                     ]
                 },

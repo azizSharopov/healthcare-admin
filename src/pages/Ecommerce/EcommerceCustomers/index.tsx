@@ -12,7 +12,7 @@ import {
   ModalHeader,
   Label,
   Input,
-  FormFeedback
+  FormFeedback,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import Flatpickr from "react-flatpickr";
@@ -47,6 +47,7 @@ import Loader from "../../../Components/Common/Loader";
 import ExportCSVModal from "../../../Components/Common/ExportCSVModal";
 import { createSelector } from "reselect";
 
+
 const EcommerceCustomers = () => {
   const dispatch: any = useDispatch();
 
@@ -68,6 +69,8 @@ const EcommerceCustomers = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [customer, setCustomer] = useState<any>([]);
 
+ 
+
   // Delete customer
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteModalMulti, setDeleteModalMulti] = useState<boolean>(false);
@@ -86,9 +89,9 @@ const EcommerceCustomers = () => {
   const customermocalstatus = [
     {
       options: [
-        { label: "Status", value: "Status" },
-        { label: "Active", value: "Active" },
-        { label: "Block", value: "Block" },
+        { label: "상태", value: "상태" },
+        { label: "정상", value: "정상" },
+        { label: "정지", value: "정지" },
       ],
     },
   ];
@@ -166,7 +169,7 @@ const EcommerceCustomers = () => {
       email: customer.email,
       phone: customer.phone,
       date: customer.date,
-      status: customer.status
+      status: customer.status,
     });
 
     setIsEdit(true);
@@ -204,7 +207,7 @@ const EcommerceCustomers = () => {
   // ]);
 
   const handleValidDate = (date: any) => {
-    const date1 = moment(new Date(date)).format("DD MMM Y");
+    const date1 = moment(new Date(date)).format("Y. MM. DD");
     return date1;
   };
 
@@ -245,6 +248,9 @@ const EcommerceCustomers = () => {
     setSelectedCheckBoxDelete(ele);
   };
 
+  
+
+
   // Customers Column
   const columns = useMemo(
     () => [
@@ -259,12 +265,12 @@ const EcommerceCustomers = () => {
         enableSorting: false,
       },
       {
-        header: <input type="checkbox" id="checkBoxAll" className="form-check-input" onClick={() => checkedAll()} />,
+        header: "번호",
         cell: (cell: any) => {
-          return <input type="checkbox" className="customerCheckBox form-check-input" value={cell.getValue()} onChange={() => deleteCheckbox()} />;
+          return cell.row.index + 1; // Jadvalning qator indeksi + 1, raqamni olish uchun
         },
         id: '#',
-        accessorKey: 'id',
+        accessorKey: 'id', // Eslatma: Bu maydon ishlatilmasa ham bo'ladi
         enableColumnFilter: false,
         enableSorting: false,
       },
@@ -274,39 +280,62 @@ const EcommerceCustomers = () => {
         enableColumnFilter: false,
       },
       {
-        header: "신상",
-        cell: (cellProps: any) => {
-          return (
-            <ul className="list-inline hstack gap-2 mb-0">
-              <li className="list-inline-item edit" title="Edit">
-                <Link
-                  to="#"
-                  className="text-primary d-inline-block edit-item-btn"
-                  onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
-                >
-
-                  <i className="ri-pencil-fill fs-16"></i>
-                </Link>
-              </li>
-              <li className="list-inline-item" title="Remove">
-                <Link
-                  to="#"
-                  className="text-danger d-inline-block remove-item-btn"
-                  onClick={() => { const customerData = cellProps.row.original; onClickDelete(customerData); }}
-                >
-                  <i className="ri-delete-bin-5-fill fs-16"></i>
-                </Link>
-              </li>
-            </ul>
-          );
-        },
-      },
-      {
         header: "이름",
         accessorKey: "customer",
         enableColumnFilter: false,
       },
-     
+      // {
+      //   header: "신상",
+      //   cell: (cellProps: any) => {
+      //     return (
+      //       <ul className="list-inline hstack gap-2 mb-0">
+      //         <li className="list-inline-item edit" title="Edit">
+      //           <Link
+      //             to="#"
+      //             className="text-primary d-inline-block edit-item-btn"
+      //             onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
+      //           >
+
+      //             <i className="ri-pencil-fill fs-16"></i>
+      //           </Link>
+      //         </li>
+      //         <li className="list-inline-item" title="Remove">
+      //           <Link
+      //             to="#"
+      //             className="text-danger d-inline-block remove-item-btn"
+      //             onClick={() => { const customerData = cellProps.row.original; onClickDelete(customerData); }}
+      //           >
+      //             <i className="ri-delete-bin-5-fill fs-16"></i>
+      //           </Link>
+      //         </li>
+      //       </ul>
+      //     );
+      //   },
+      // },
+    
+      {
+        header: "신상",
+        cell: (cellProps: any) => {
+          const customerData = cellProps.row.original;
+      
+          // Ayol yoki erkaklik ikonini aniqlash
+          const genderIcon = customerData.gender === 'male' ? 'ri-male-fill' : 'ri-female-fill';
+        
+          // Yoshni hisoblash
+          const age = new Date().getFullYear() - new Date(customerData.birthDate).getFullYear();
+      
+          return (
+            <table>
+              <tbody>
+                <tr>
+                  <td><i className={`${genderIcon} fs-16 text-primary`} title={customerData.gender || 'nan'}></i></td>
+                  <td>{age || 'nan'}</td>
+                </tr>
+              </tbody>
+            </table>
+          );
+        },
+      },
       {
         header: "연락처",
         accessorKey: "phone",
@@ -328,9 +357,9 @@ const EcommerceCustomers = () => {
         enableColumnFilter: false,
         cell: (cell: any) => {
           switch (cell.getValue()) {
-            case "Active":
+            case "정상":
               return <span className="badge text-uppercase bg-success-subtle text-success"> {cell.getValue()} </span>;
-            case "Block":
+            case "정지":
               return <span className="badge text-uppercase bg-danger-subtle text-danger"> {cell.getValue()} </span>;
             default:
               return <span className="badge text-uppercase bg-info-subtle text-info"> {cell.getValue()} </span>;
@@ -417,7 +446,7 @@ const EcommerceCustomers = () => {
           onCloseClick={() => setDeleteModalMulti(false)}
         />
         <Container fluid>
-          <BreadCrumb title="Customers" pageTitle="Ecommerce" />
+          <BreadCrumb title="회원관리" pageTitle="회원목록" />
           <Row>
             <Col lg={12}>
               <Card id="customerList">
@@ -450,6 +479,7 @@ const EcommerceCustomers = () => {
                     </div>
                   </Row>
                 </CardHeader>
+
                 <div className="card-body pt-0">
                   <div>
                     {isCustomerSuccess && customers.length ? (
@@ -465,6 +495,8 @@ const EcommerceCustomers = () => {
                     ) : (<Loader error={error} />)
                     }
                   </div>
+                 
+              
 
                   <Modal id="showModal" isOpen={modal} toggle={toggle} centered>
                     <ModalHeader className="bg-light p-3" toggle={toggle}>
@@ -623,6 +655,62 @@ const EcommerceCustomers = () => {
                             </FormFeedback>
                           ) : null}
                         </div>
+
+<div>
+  <Label htmlFor="gender-field" className="form-label">
+    Gender
+  </Label>
+  <div>
+    <input
+      className="form-check-input"
+      type="radio"
+      name="gender"
+      id="female"
+      value="female"
+      checked={validation.values.gender === "female"}
+      onChange={validation.handleChange}
+    />
+    <label className="form-check-label" htmlFor="female">
+      Female
+    </label>
+  </div>
+  <div>
+    <input
+      className="form-check-input"
+      type="radio"
+      name="gender"
+      id="male"
+      value="male"
+      checked={validation.values.gender === "male"}
+      onChange={validation.handleChange}
+    />
+    <label className="form-check-label" htmlFor="male">
+      Male
+    </label>
+  </div>
+</div>
+
+
+                      
+
+<div className="mb-3">
+  <Label htmlFor="age-field" className="form-label">
+    Age
+  </Label>
+  <Input
+    name="age"
+    type="number"
+    id="age-field"
+    placeholder="Enter Age"
+    onChange={validation.handleChange}
+    onBlur={validation.handleBlur}
+    value={validation.values.age || ""}
+    invalid={validation.touched.age && validation.errors.age}
+  />
+  {validation.touched.age && validation.errors.age ? (
+    <FormFeedback type="invalid">{validation.errors.age}</FormFeedback>
+  ) : null}
+</div>
                       </ModalBody>
                       <ModalFooter>
                         <div className="hstack gap-2 justify-content-end">

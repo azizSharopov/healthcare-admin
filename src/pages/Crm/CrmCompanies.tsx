@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 
+import moment from "moment";
 // Import Images
 import multiUser from '../../assets/images/users/multi-user.jpg';
 
@@ -299,6 +300,10 @@ const CrmCompanies = () => {
     setSelectedCheckBoxDelete(ele);
   };
 
+  const handleValidDate = (date: any) => {
+    const date1 = moment(new Date(date)).format("DD MMM Y");
+    return date1;
+  };
 
   // Column
   const columns = useMemo(
@@ -314,7 +319,7 @@ const CrmCompanies = () => {
         enableSorting: false,
       },
       {
-        header: "Company Name",
+        header: "병원명",
         accessorKey: "companyName",
         enableColumnFilter: false,
         cell: (cell: any) => (
@@ -342,17 +347,17 @@ const CrmCompanies = () => {
         ),
       },
       {
-        header: "Owner",
+        header: "검진프로그램명",
         accessorKey: "owner",
         enableColumnFilter: false,
       },
       {
-        header: "Industry Type",
+        header: "검진분류",
         accessorKey: "industryType",
         enableColumnFilter: false,
       },
       {
-        header: "Rating",
+        header: "검진비용",
         accessorKey: "rating",
         enableColumnFilter: false,
         cell: (cell: any) => (
@@ -362,16 +367,32 @@ const CrmCompanies = () => {
         ),
       },
       {
-        header: "Location",
+        header: "검진항목",
         accessorKey: "location",
         enableColumnFilter: false,
+      },
+      {
+        header: "등록일",
+        accessorKey: "date",
+        enableColumnFilter: false,
+        cell: (cell: any) => (
+          <>
+            {handleValidDate(cell.getValue())}
+          </>
+        ),
+      },
+      {
+        header: "복사",
+        accessorKey: "rating",
+        enableColumnFilter: false,
+       
       },
       {
         header: "Action",
         cell: (cell: any) => {
           return (
             <ul className="list-inline hstack gap-2 mb-0">
-              <li className="list-inline-item edit" title="Call">
+              {/* <li className="list-inline-item edit" title="Call">
                 <Link to="#" className="text-muted d-inline-block">
                   <i className="ri-phone-line fs-16"></i>
                 </Link>
@@ -387,7 +408,7 @@ const CrmCompanies = () => {
                 >
                   <i className="ri-eye-fill align-bottom text-muted"></i>
                 </Link>
-              </li>
+              </li> */}
               <li className="list-inline-item" title="Edit">
                 <Link className="edit-item-btn" to="#"
                   onClick={() => { const companyData = cell.row.original; handleCompanyClick(companyData); }}

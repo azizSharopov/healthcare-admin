@@ -7,14 +7,14 @@ import VerticalLayout from "../Layouts/index";
 
 //routes
 import { authProtectedRoutes, publicRoutes } from "./allRoutes";
-import  AuthProtected  from './AuthProtected';
+import AuthProtected  from './AuthProtected';
 
 const Index = () => {
     return (
         <React.Fragment>
             <Routes>
                 <Route>
-                    {publicRoutes.map((route: { path: string | undefined; component: any; }, idx: React.Key | null | undefined) => (
+                    {publicRoutes.map((route, idx) => (
                         <Route
                             path={route.path}
                             element={
@@ -23,7 +23,6 @@ const Index = () => {
                                 </NonAuthLayout>
                             }
                             key={idx}
-                            // exact={true}
                         />
                     ))}
                 </Route>
@@ -37,7 +36,6 @@ const Index = () => {
                                     <VerticalLayout>{route.component}</VerticalLayout>
                                 </AuthProtected>}
                             key={idx}
-                            // exact={true}
                         />
                     ))}
                 </Route>

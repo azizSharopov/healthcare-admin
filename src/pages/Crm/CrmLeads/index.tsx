@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
+
 import {
   Col,
   Container,
@@ -272,7 +273,7 @@ const CrmLeads = () => {
   // ]);
 
   const handleValidDate = (date: any) => {
-    const date1 = moment(new Date(date)).format("DD MMM Y");
+    const date1 = moment(new Date(date)).format("DD MMM Y h:mm");
     return date1;
   };
 
@@ -326,6 +327,21 @@ const CrmLeads = () => {
         enableSorting: false,
       },
       {
+        header: "번호",
+        cell: (cell: any) => {
+          return cell.row.index + 1; // Jadvalning qator indeksi + 1, raqamni olish uchun
+        },
+        id: '#',
+        accessorKey: 'id', // Eslatma: Bu maydon ishlatilmasa ham bo'ladi
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+      {
+        header: "아이디",
+        accessorKey: "email",
+        enableColumnFilter: false,
+      },
+      {
         header: "이름",
         accessorKey: "name",
         enableColumnFilter: false,
@@ -356,50 +372,36 @@ const CrmLeads = () => {
           </>
         ),
       },
-    
-      {
-        header: "신상",
-        accessorKey: "score",
-        enableColumnFilter: false,
-      },
       {
         header: "연락처",
         accessorKey: "phone",
         enableColumnFilter: false,
       },
-      {
-        header: "회원그룹",
-        accessorKey: "tags",
-        enableColumnFilter: false,
-        cell: (cell: any) => (
-          <>
-            {cell.getValue().map((item: any, key: any) => (<span className="badge bg-primary-subtle text-primary me-1" key={key}>{item}</span>))}
-          </>
-        ),
-      },
+     
+      // {
+      //   header: "회원그룹",
+      //   accessorKey: "tags",
+      //   enableColumnFilter: false,
+      //   cell: (cell: any) => (
+      //     <>
+      //       {cell.getValue().map((item: any, key: any) => (<span className="badge bg-primary-subtle text-primary me-1" key={key}>{item}</span>))}
+      //     </>
+      //   ),
+      // },
       
       {
-        header: "가입경로",
+        header: "결제수단",
         accessorKey: "company",
         enableColumnFilter: false,
       },
       {
-        header: "상태",
-        accessorKey: "status",
+        header: "결제금액",
+        accessorKey: "company",
         enableColumnFilter: false,
-        cell: (cell: any) => {
-          switch (cell.getValue()) {
-            case "Active":
-              return <span className="badge text-uppercase bg-success-subtle text-success"> {cell.getValue()} </span>;
-            case "Block":
-              return <span className="badge text-uppercase bg-danger-subtle text-danger"> {cell.getValue()} </span>;
-            default:
-              return <span className="badge text-uppercase bg-info-subtle text-info"> {cell.getValue()} </span>;
-          }
-        }
       },
+     
       {
-        header: "등록일",
+        header: "결제일",
         accessorKey: "date",
         enableColumnFilter: false,
         cell: (cell: any) => (
@@ -409,23 +411,7 @@ const CrmLeads = () => {
         ),
       },
     
-      {
-        header: "수정",
-        cell: (cellProps: any) => {
-          return (
-            <ul className="list-inline hstack gap-2 mb-0">
-              <li className="list-inline-item" title="Edit">
-                <Link className="edit-item-btn" to="#"
-                  onClick={() => { const LeadData = cellProps.row.original; handleLeadClick(LeadData); }}
-                >
-                  <i className="ri-pencil-fill align-bottom text-muted"></i>
-                </Link>
-              </li>
-             
-            </ul>
-          );
-        },
-      },
+      
       {
         header: "삭제",
         cell: (cellProps: any) => {
@@ -472,7 +458,7 @@ const CrmLeads = () => {
           <BreadCrumb title="Leads" pageTitle="CRM" />
           <Row>
             <Col lg={12}>
-              <Card id="leadsList">
+              <Card id="leadsList" >
                 <CardHeader className="border-0">
                   <Row className="g-4 align-items-center">
                     <Col sm={3}>
@@ -548,18 +534,19 @@ const CrmLeads = () => {
                     </div>
                   </Row>
                 </CardHeader>
-                <CardBody className="pt-3">
-                  <div>
+                <CardBody className="pt-3 overflow-auto">
+                  <div className="overflow-auto">
                     {leads && leads.length ? (
                       <TableContainer
                         columns={columns}
                         data={(leads || [])}
                         isGlobalFilter={false}
                         customPageSize={10}
-                        divClass="table-responsive table-card"
+                        divClass="table-responsive  table-card"
                         tableClass="align-middle"
                         theadClass="table-light"
                         isLeadsFilter={false}
+                       
                       />
                     ) : (<Loader error={error} />)
                     }

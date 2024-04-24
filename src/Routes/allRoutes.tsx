@@ -40,17 +40,17 @@ import CrmContacts from "../pages/Crm/CrmContacts";
 import CrmLeads from "../pages/Crm/CrmLeads/index";
 
 //Invoices
-import InvoiceList from "../pages/Invoices/InvoiceList";
+
 import InvoiceCreate from "../pages/Invoices/InvoiceCreate";
-import InvoiceDetails from "../pages/Invoices/InvoiceDetails";
+
 
 // Support Tickets
-import ListView from '../pages/SupportTickets/ListView';
+
 import TicketsDetails from '../pages/SupportTickets/TicketsDetails';
 
 // //Ecommerce Pages
 import EcommerceProducts from "../pages/Ecommerce/EcommerceProducts/index";
-import EcommerceProductDetail from "../pages/Ecommerce/EcommerceProducts/EcommerceProductDetail";
+
 import EcommerceAddProduct from "../pages/Ecommerce/EcommerceProducts/EcommerceAddProduct";
 import EcommerceOrders from "../pages/Ecommerce/EcommerceOrders/index";
 import EcommerceOrderDetail from "../pages/Ecommerce/EcommerceOrders/EcommerceOrderDetail";
@@ -262,7 +262,7 @@ const authProtectedRoutes = [
 
 
   // NFT Marketplace
-  
+
   { path: "/apps-nft-create", component: <CreateNFT /> },
   { path: "/apps-nft-ranking", component: <Ranking /> },
 

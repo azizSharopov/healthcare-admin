@@ -24,7 +24,8 @@ import {
   Form,
   ModalFooter,
   Table,
-  FormFeedback
+  FormFeedback,
+  Button
 } from "reactstrap";
 import Select from "react-select";
 
@@ -294,7 +295,17 @@ const CrmContacts = () => {
         enableSorting: false,
       },
       {
-        header: "Name",
+        header: "번호",
+        cell: (cell: any) => {
+          return cell.row.index + 1; // Jadvalning qator indeksi + 1, raqamni olish uchun
+        },
+        id: '#',
+        accessorKey: 'id', // Eslatma: Bu maydon ishlatilmasa ham bo'ladi
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+      {
+        header: "아이디",
         accessorKey: "name",
         enableColumnFilter: false,
         cell: (cell: any) => (
@@ -315,27 +326,52 @@ const CrmContacts = () => {
         ),
       },
       {
-        header: "Company",
+        header: "병원명",
         accessorKey: "company",
         enableColumnFilter: false,
       },
       {
-        header: "Email ID",
-        accessorKey: "email",
-        enableColumnFilter: false,
-      },
-      {
-        header: "Phone No",
+        header: "연락처",
         accessorKey: "phone",
         enableColumnFilter: false,
       },
       {
-        header: "Lead Score",
+        header: "주소",
+        accessorKey: "email",
+        enableColumnFilter: false,
+      },
+      {
+        header: "상태",
+        accessorKey: "status",
+        enableColumnFilter: false,
+        cell: (cell: any) => {
+          switch (cell.getValue()) {
+            case "정상":
+              return <span className="badge text-uppercase bg-success-subtle text-success"> {cell.getValue()} </span>;
+            case "정지":
+              return <span className="badge text-uppercase bg-danger-subtle text-danger"> {cell.getValue()} </span>;
+            default:
+              return <span className="badge text-uppercase bg-info-subtle text-info"> {cell.getValue()} </span>;
+          }
+        }
+      },
+      {
+        header: "등록일",
+        accessorKey: "date",
+        enableColumnFilter: false,
+        cell: (cell: any) => (
+          <>
+            {handleValidDate(cell.getValue())}
+          </>
+        ),
+      },
+      {
+        header: "검진항목",
         accessorKey: "score",
         enableColumnFilter: false,
       },
       {
-        header: "Tags",
+        header: "특화검진",
         accessorKey: "tags",
         enableColumnFilter: false,
         cell: (cell: any) => (
@@ -344,23 +380,24 @@ const CrmContacts = () => {
           </>
         ),
       },
-      {
-        header: "Last Contacted",
-        accessorKey: "date",
-        enableColumnFilter: false,
-        cell: (cell: any) => (
-          <>
-            {handleValidDate(cell.getValue())},{" "}
-            <small className="text-muted">{handleValidTime(cell.getValue())}</small>
-          </>
-        ),
-      },
+      // {
+      //   header: "Last Contacted",
+      //   accessorKey: "date",
+      //   enableColumnFilter: false,
+      //   cell: (cell: any) => (
+      //     <>
+      //       {handleValidDate(cell.getValue())},{" "}
+      //       <small className="text-muted">{handleValidTime(cell.getValue())}</small>
+      //     </>
+      //   ),
+      // },
+     
       {
         header: "Action",
         cell: (cellProps: any) => {
           return (
             <ul className="list-inline hstack gap-2 mb-0">
-              <li className="list-inline-item edit" title="Call">
+              {/* <li className="list-inline-item edit" title="Call">
                 <Link to="#" className="text-muted d-inline-block">
                   <i className="ri-phone-line fs-16"></i>
                 </Link>
@@ -369,7 +406,7 @@ const CrmContacts = () => {
                 <Link to="#" className="text-muted d-inline-block">
                   <i className="ri-question-answer-line fs-16"></i>
                 </Link>
-              </li>
+              </li> */}
               <li className="list-inline-item">
                 <UncontrolledDropdown>
                   <DropdownToggle
@@ -599,7 +636,7 @@ const CrmContacts = () => {
                                 htmlFor="name-field"
                                 className="form-label"
                               >
-                                Name
+                                아이디
                               </Label>
                               <Input
                                 name="name"
@@ -629,13 +666,13 @@ const CrmContacts = () => {
                                 htmlFor="company_name-field"
                                 className="form-label"
                               >
-                                Company Name
+                             병원명
                               </Label>
                               <Input
-                                name="company"
+                                name="company_name"
                                 id="company_name-field"
                                 className="form-control"
-                                placeholder="Enter Company Name"
+                                placeholder="병원명"
                                 type="text"
                                 validate={{
                                   required: { value: true },
@@ -682,7 +719,6 @@ const CrmContacts = () => {
                               {validation.touched.designation && validation.errors.designation ? (
                                 <FormFeedback type="invalid">{validation.errors.designation}</FormFeedback>
                               ) : null}
-
                             </div>
                           </Col>
 
@@ -692,14 +728,14 @@ const CrmContacts = () => {
                                 htmlFor="emailid-field"
                                 className="form-label"
                               >
-                                Email ID
+                               주소
                               </Label>
 
                               <Input
-                                name="email"
+                                name="주소"
                                 id="emailid-field"
                                 className="form-control"
-                                placeholder="Enter Email"
+                                placeholder="주소"
                                 type="text"
                                 validate={{
                                   required: { value: true },
@@ -723,7 +759,7 @@ const CrmContacts = () => {
                                 htmlFor="phone-field"
                                 className="form-label"
                               >
-                                Phone
+                                연락처
                               </Label>
 
                               <Input
@@ -836,7 +872,7 @@ const CrmContacts = () => {
                   </div>
                   <h5 className="mt-4 mb-1">{info.name || "Tonya Noble"}</h5>
                   <p className="text-muted">{info.company || "Nesta Technologies"}</p>
-
+           
                   <ul className="list-inline mb-0">
                     <li className="list-inline-item avatar-xs">
                       <Link
@@ -879,19 +915,19 @@ const CrmContacts = () => {
                       <tbody>
                         <tr>
                           <td className="fw-medium">
-                            Designation
+                            주소
                           </td>
                           <td>Lead Designer / Developer</td>
                         </tr>
                         <tr>
                           <td className="fw-medium">
-                            Email ID
+                            아이디
                           </td>
                           <td>{info.email || "tonyanoble@velzon.com"}</td>
                         </tr>
                         <tr>
                           <td className="fw-medium">
-                            Phone No
+                            연락처
                           </td>
                           <td>{info.phone || "414-453-5725"}</td>
                         </tr>
@@ -903,7 +939,7 @@ const CrmContacts = () => {
                         </tr>
                         <tr>
                           <td className="fw-medium">
-                            Tags
+                            상태
                           </td>
                           <td>
                             {(info.tags || ["Lead", "Partner"]).map((item: any, key: any) => (<span className="badge bg-primary-subtle text-primary me-1" key={key}>{item}</span>))}
