@@ -23,7 +23,6 @@ import CrmContacts from "../pages/Crm/CrmContacts";
 import CrmLeads from "../pages/Crm/CrmLeads/index";
 import InvoiceCreate from "../pages/Invoices/InvoiceCreate";
 import TicketsDetails from '../pages/SupportTickets/TicketsDetails';
-// import 제휴사목록 from "../pages/제휴사관리/제휴사목록/index";
 import EcommerceProducts from "../pages/Ecommerce/EcommerceProducts/index";
 import EcommerceAddProduct from "../pages/Ecommerce/EcommerceProducts/EcommerceAddProduct";
 import EcommerceOrders from "../pages/Ecommerce/EcommerceOrders/index";
@@ -118,6 +117,10 @@ import UiLink from "../pages/BaseUi/UiLinks/UiLinks";
 import PrivacyPolicy from "pages/Pages/PrivacyPolicy";
 import Kanbanboard from "pages/Tasks/KanbanBoard";
 
+import MemberList from "pages/Ecommerce/MemberList";
+import MemberWithdrawal from "pages/Ecommerce/MemberWithdrawal";
+
+
 const authProtectedRoutes = [
   { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
   { path: "/dashboard-crm", component: <DashboardCrm /> },
@@ -140,7 +143,9 @@ const authProtectedRoutes = [
   { path: "/apps-ecommerce-seller-details", component: <EcommerceSellerDetail /> },
   { path: "/apps-file-manager", component: <FileManager /> },
   { path: "/apps-todo", component: <ToDoList /> },
-  // { path: "/제휴사목록", component: <제휴사목록 /> },
+
+  { path: "/apps-member-list", component: <MemberList /> },
+  { path: "/apps-member-withdrawal", component: <MemberWithdrawal/> },
 
   // eslint-disable-next-line react/jsx-pascal-case
   

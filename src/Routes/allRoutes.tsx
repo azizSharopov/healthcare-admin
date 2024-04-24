@@ -206,6 +206,11 @@ import UiLink from "../pages/BaseUi/UiLinks/UiLinks";
 import PrivacyPolicy from "pages/Pages/PrivacyPolicy";
 import Kanbanboard from "pages/Tasks/KanbanBoard";
 
+// Membership Management
+import MemberList from "pages/Ecommerce/MemberList";
+import MemberWithdrawal from "../pages/Ecommerce/MemberWithdrawal/index";
+
+
 const authProtectedRoutes = [
   { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
   { path: "/dashboard-crm", component: <DashboardCrm /> },
@@ -228,6 +233,9 @@ const authProtectedRoutes = [
   { path: "/apps-ecommerce-seller-details", component: <EcommerceSellerDetail /> },
   { path: "/apps-file-manager", component: <FileManager /> },
   { path: "/apps-todo", component: <ToDoList /> },
+
+  { path: "/apps-member-list", component: <MemberList /> },
+  { path: "/apps-member-withdrawal", component: <MemberWithdrawal /> },
 
   //Chat
   { path: "/apps-chat", component: <Chat /> },

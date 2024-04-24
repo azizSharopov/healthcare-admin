@@ -29,6 +29,7 @@ const Navdata = () => {
     const [isSupportTickets, setIsSupportTickets] = useState<boolean>(false);
     const [isNFTMarketplace, setIsNFTMarketplace] = useState<boolean>(false);
  
+    const [isMembership, setIsMembership] = useState<boolean>(false);
 
 
     // Authentication
@@ -223,12 +224,14 @@ const Navdata = () => {
                     parentId: "apps",
                     stateVariables: isTasks,
                     childItems: [
-                        // { id: 1, label: "결제목록", link: "/apps-crm-leads" },
-                        { id: 1, label: "회원목록", link: "/apps-ecommerce-customers", parentId: "apps" },
-                        { id: 2, label: "탈퇴회원목록", link: "/apps-ecommerce-customers", parentId: "apps" },
+                    
+                        { id: 1, label: "회원목록", link: "/apps-member-list", parentId: "apps" },
+                        { id: 2, label: "탈퇴회원목록", link: "/apps-member-withdrawal", parentId: "apps" },
+                        // { id: 3, label: "탈퇴회원목록", link: "/apps-ecommerce-customers", parentId: "apps" },
                         // { id: 1, label: "회원목록", link: "/apps-tasks-list-view", parentId: "apps", },
                         // { id: 2, label: "탈퇴회원목록", link: "/apps-tasks-kanban", parentId: "apps", },
-            
+                        // { id: 1, label: "결제목록", link: "/apps-crm-leads" },
+                            // { id: 1, label: "회원목록", link: "/apps-ecommerce-customers", parentId: "apps" },
                     ]
                 },
                 {
