@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, ModalBody } from "reactstrap";
+import PasswordModal from "../Common/PasswordModal"
+
 // import { loadAnimation } from "lottie-web";
 // import { defineElement } from "lord-icon-element";
 
@@ -8,13 +10,23 @@ import { Modal, ModalBody } from "reactstrap";
 // import '@lordicon/lord-icon-element/lord-icon-element.js';
 
 interface DeleteModalProps {
-  show ?: boolean;
-  onDeleteClick ?: () => void;
-  onCloseClick ?: () => void;
-  recordId ?: string;
+  show?: boolean;
+  onDeleteClick?: () => void;
+  onCloseClick?: () => void;
+  recordId?: string;
 }
 
-const DeleteModal: React.FC<DeleteModalProps> = ({ show, onDeleteClick, onCloseClick, recordId }) => {
+const DeleteModal: React.FC<DeleteModalProps> = ({
+  show,
+  onDeleteClick,
+  onCloseClick,
+  recordId,
+}) => {
+  const handleConfirmDelete = () => {
+    onDeleteClick && onDeleteClick();
+  };
+
+  const [openPasswordModal, setOpenPasswordModal] = useState(false);
   return (
     <Modal fade={true} isOpen={show} toggle={onCloseClick} centered={true}>
       <ModalBody className="py-3 px-5">
@@ -40,12 +52,24 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ show, onDeleteClick, onCloseC
             type="button"
             className="btn w-sm btn-danger "
             id="delete-record"
-            onClick={onDeleteClick}
+            onClick={() => {
+              // Parolni talab qiluvchi modal oynani ochish
+              // onDeleteClick bosilganda ishga tushirish
+              setOpenPasswordModal(true);
+            }}
+          
           >
             Yes, Delete It!
           </button>
         </div>
       </ModalBody>
+      {/* Parolni talab qiluvchi modal oynani ochish */}
+      {openPasswordModal && (
+        <PasswordModal
+          onCancel={() => setOpenPasswordModal(false)}
+          onConfirm={handleConfirmDelete}
+        />
+      )}
     </Modal>
   ) as unknown as JSX.Element;
 };

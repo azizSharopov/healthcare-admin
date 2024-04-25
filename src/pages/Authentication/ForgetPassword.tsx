@@ -17,12 +17,13 @@ import { userForgetPassword } from "../../slices/thunks";
 
 // import images
 // import profile from "../../assets/images/bg.png";
-import logoLight from "../../assets/images/logo-light.png";
+import health from "../../assets/images/health.png"
+import digital from "../../assets/images/digital.png"
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 import { createSelector } from "reselect";
 
 const ForgetPasswordPage = (props:any) => {
-  document.title="Reset Password | Velzon - React Admin & Dashboard Template";
+  document.title="Reset Password | Healthcare - React Admin & Dashboard Template";
 
   const dispatch :any= useDispatch();
 
@@ -34,7 +35,7 @@ const ForgetPasswordPage = (props:any) => {
       email: '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
+      email: Yup.string().required("이메일 주소를 입력하세요"),
     }),
     onSubmit: (values) => {
       dispatch(userForgetPassword(values, props.router.location.pathname));
@@ -61,10 +62,10 @@ const ForgetPasswordPage = (props:any) => {
               <div className="text-center mt-sm-5 mb-4 text-white-50">
                 <div>
                   <Link to="/" className="d-inline-block auth-logo">
-                    <img src={logoLight} alt="" height="20" />
+                  <img src={digital} alt="" height="70" />
                   </Link>
                 </div>
-                <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                <p className="mt-3 fs-15 fw-medium">Digital Healthcare</p>
               </div>
             </Col>
           </Row>
@@ -75,15 +76,16 @@ const ForgetPasswordPage = (props:any) => {
 
                 <CardBody className="p-4">
                   <div className="text-center mt-2">
-                    <h5 className="text-primary">Forgot Password?</h5>
-                    <p className="text-muted">Reset password with velzon</p>
+                    <h5 className="text-primary">비밀번호 잊으셨나요?</h5>
+                    {/* <p className="text-muted">Reset password with velzon</p> */}
 
                     <i className="ri-mail-send-line display-5 text-success mb-3"></i>
 
                   </div>
 
                   <Alert className="border-0 alert-warning text-center mb-2 mx-2" role="alert">
-                    Enter your email and instructions will be sent to you!
+                    {/* Enter your email and instructions will be sent to you! */}
+                    이메일을 입력하시면 지침을 보내드리겠습니다
                   </Alert>
                   <div className="p-2">
                     {forgetError && forgetError ? (
@@ -104,11 +106,11 @@ const ForgetPasswordPage = (props:any) => {
                       }}
                     >
                       <div className="mb-4">
-                        <Label className="form-label">Email</Label>
+                        <Label className="form-label">이메일</Label>
                         <Input
                           name="email"
                           className="form-control"
-                          placeholder="Enter email"
+                          placeholder="이메일 주소를 입력하세요"
                           type="email"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
@@ -123,7 +125,7 @@ const ForgetPasswordPage = (props:any) => {
                       </div>
 
                       <div className="text-center mt-4">
-                        <button className="btn btn-success w-100" type="submit">Send Reset Link</button>
+                        <button className="btn btn-success w-100" type="submit">재설정 링크 보내기</button>
                       </div>
                     </Form>
                   </div>
@@ -131,7 +133,7 @@ const ForgetPasswordPage = (props:any) => {
               </Card>
 
               <div className="mt-4 text-center">
-                <p className="mb-0">Wait, I remember my password... <Link to="/login" className="fw-semibold text-primary text-decoration-underline"> Click here </Link> </p>
+                <p className="mb-0">잠깐만, 나 비밀번호 기억나는데... <Link to="/login" className="fw-semibold text-primary text-decoration-underline"> 여기를 클릭하세요 </Link> </p>
               </div>
 
             </Col>

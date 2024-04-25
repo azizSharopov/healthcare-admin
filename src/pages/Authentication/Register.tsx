@@ -17,9 +17,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 //import images 
-import logoLight from "../../assets/images/logo-light.png";
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 import { createSelector } from "reselect";
+import health from "../../assets/images/health.png"
+import doctor from "../../assets/images/doctor.png"
+import digital from "../../assets/images/digital.png"
+import naver from "../../assets/images/naver.png"
+import kakao from "../../assets/images/kakao.png"
+import google from "../../assets/images/google.png"
 
 const Register = () => {
     const history = useNavigate();
@@ -38,12 +43,12 @@ const Register = () => {
             confirm_password: ''
         },
         validationSchema: Yup.object({
-            email: Yup.string().required("Please Enter Your Email"),
-            first_name: Yup.string().required("Please Enter Your Username"),
-            password: Yup.string().required("Please Enter Your Password"),
+            email: Yup.string().required("이메일을 입력하지 않았습니다"),
+            first_name: Yup.string().required("아이디를 입력하지 않았습니다"),
+            password: Yup.string().required("비밀번호를 입력하지 않았습니다"),
             confirm_password: Yup.string()
-                .oneOf([Yup.ref('password'), ""],)
-                .required('Confirm Password is required')
+                .oneOf([Yup.ref('비밀번호'), ""],)
+                .required('비밀번호를 입력하지 않았습니다')
         }),
         onSubmit: (values) => {
             dispatch(registerUser(values));
@@ -75,36 +80,36 @@ const Register = () => {
 
     }, [dispatch, success, error, history]);
 
-    document.title = "Basic SignUp | Velzon - React Admin & Dashboard Template";
+    document.title = "Basic SignUp | Healthcare - React Admin & Dashboard Template";
 
     return (
         <React.Fragment>
             <ParticlesAuth>
-                <div className="auth-page-content mt-lg-5">
+                <div className="auth-page-content mt-lg-4">
                     <Container>
                         <Row>
                             <Col lg={12}>
-                                <div className="text-center mt-sm-5 mb-4 text-white-50">
+                                <div className="text-center mt-sm-1 mb-4 text-white-50">
                                     <div>
                                         <Link to="/" className="d-inline-block auth-logo">
-                                            <img src={logoLight} alt="" height="20" />
+                                            <img src={digital} alt="" height="50" />
                                         </Link>
                                     </div>
-                                    <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                    <p className="mt-3 fs-15 fw-medium">Digital Healthcare</p>
                                 </div>
                             </Col>
                         </Row>
 
                         <Row className="justify-content-center">
-                            <Col md={8} lg={6} xl={5}>
-                                <Card className="mt-4">
+                            <Col md={4} lg={4} xl={5}>
+                                <Card className="mt-1">
 
                                     <CardBody className="p-4">
                                         <div className="text-center mt-2">
-                                            <h5 className="text-primary">Create New Account</h5>
-                                            <p className="text-muted">Get your free velzon account now</p>
+                                        <img src={health} alt="" height="20"  />
+                                            <p className="text-muted p-2" >당신의 평생 건강파트너</p>
                                         </div>
-                                        <div className="p-2 mt-4">
+                                        <div className="p-2 mt-2">
                                             <Form
                                                 onSubmit={(e) => {
                                                     e.preventDefault();
@@ -118,23 +123,26 @@ const Register = () => {
                                                         {toast("Your Redirect To Login Page...", { position: "top-right", hideProgressBar: false, className: 'bg-success text-white', progress: undefined, toastId: "" })}
                                                         <ToastContainer autoClose={2000} limit={1} />
                                                         <Alert color="success">
-                                                            Register User Successfully and Your Redirect To Login Page...
+                                                            {/* Register User Successfully and Your Redirect To Login Page... */}
+                                                            사용자를 성공적으로 등록하면 로그인 페이지로 리디렉션됩니다...
                                                         </Alert>
                                                     </>
                                                 ) : null}
 
                                                 {error && error ? (
                                                     <Alert color="danger"><div>
-                                                        Email has been Register Before, Please Use Another Email Address... </div></Alert>
+                                                        {/* Email has been Register Before, Please Use Another Email Address... */}
+                                                        이전에 등록한 이메일입니다. 다른 이메일 주소를 사용해 주세요...
+                                                         </div></Alert>
                                                 ) : null}
 
-                                                <div className="mb-3">
-                                                    <Label htmlFor="useremail" className="form-label">Email <span className="text-danger">*</span></Label>
+                                                <div className="mb-2">
+                                                    <Label htmlFor="useremail" className="form-label">이메일 <span className="text-danger">*</span></Label>
                                                     <Input
                                                         id="email"
                                                         name="email"
                                                         className="form-control"
-                                                        placeholder="Enter email address"
+                                                        placeholder="이메일 주소를 입력하세요"
                                                         type="email"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
@@ -149,11 +157,11 @@ const Register = () => {
 
                                                 </div>
                                                 <div className="mb-3">
-                                                    <Label htmlFor="username" className="form-label">Username <span className="text-danger">*</span></Label>
+                                                    <Label htmlFor="username" className="form-label">이름 <span className="text-danger">*</span></Label>
                                                     <Input
                                                         name="first_name"
                                                         type="text"
-                                                        placeholder="Enter username"
+                                                        placeholder="이름을 입력해주세요"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
                                                         value={validation.values.first_name || ""}
@@ -168,11 +176,11 @@ const Register = () => {
                                                 </div>
 
                                                 <div className="mb-3">
-                                                    <Label htmlFor="userpassword" className="form-label">Password <span className="text-danger">*</span></Label>
+                                                    <Label htmlFor="userpassword" className="form-label">비밀번호 <span className="text-danger">*</span></Label>
                                                     <Input
                                                         name="password"
                                                         type="password"
-                                                        placeholder="Enter Password"
+                                                        placeholder="비밀번호를 입력해주세요"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
                                                         value={validation.values.password || ""}
@@ -187,11 +195,11 @@ const Register = () => {
                                                 </div>
 
                                                 <div className="mb-2">
-                                                    <Label htmlFor="confirmPassword" className="form-label">Confirm Password <span className="text-danger">*</span></Label>
+                                                    <Label htmlFor="confirmPassword" className="form-label">비밀번호 화근 <span className="text-danger">*</span></Label>
                                                     <Input
                                                         name="confirm_password"
                                                         type="password"
-                                                        placeholder="Confirm Password"
+                                                        placeholder="비밀번호 화근"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
                                                         value={validation.values.confirm_password || ""}
@@ -205,15 +213,15 @@ const Register = () => {
 
                                                 </div>
 
-                                                <div className="mb-4">
+                                                {/* <div className="mb-4">
                                                     <p className="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Velzon
                                                         <Link to="#" className="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</Link></p>
-                                                </div>
+                                                </div> */}
 
                                                 <div className="mt-4">
                                                     <Button color="success" className="w-100" type="submit" disabled={loader && true}>
                                                         {loader && <Spinner size="sm" className='me-2'> Loading... </Spinner>}
-                                                        Sign Up
+                                                        가입하기
                                                     </Button>
                                                 </div>
 
@@ -221,21 +229,44 @@ const Register = () => {
                                                     <div className="signin-other-title">
                                                         <h5 className="fs-13 mb-4 title text-muted">Create account with</h5>
                                                     </div>
-
-                                                    <div>
-                                                        <button type="button" className="btn btn-primary btn-icon waves-effect waves-light"><i className="ri-facebook-fill fs-16"></i></button>{" "}
-                                                        <button type="button" className="btn btn-danger btn-icon waves-effect waves-light"><i className="ri-google-fill fs-16"></i></button>{" "}
-                                                        <button type="button" className="btn btn-dark btn-icon waves-effect waves-light"><i className="ri-github-fill fs-16"></i></button>{" "}
-                                                        <button type="button" className="btn btn-info btn-icon waves-effect waves-light"><i className="ri-twitter-fill fs-16"></i></button>
-                                                    </div>
+                                                    <div className="d-flex justify-content-evenly">
+                                                      
+                                                      <Link
+                                                          to="#"
+                                                          className="btn btn-danger btn-icon me-1"
+                                                         
+                                                      >
+                                                         <img src={google} alt="" height="40" />
+                                                      </Link>
+                                                      <Link
+                                                          to="#"
+                                                          className="btn btn-success btn-icon me-1"
+                                                        
+                                                      >
+                                                          <img src={naver} alt="" height="40" />
+                                                      </Link>
+                                                      <Link
+                                                          to="#"
+                                                          className="btn btn-warning btn-icon me-1"
+                                                        
+                                                      >
+                                                          {/* <i className="ri-kakao-talk-fill fs-16" /> */}
+                                                          <img src={kakao} alt="" height="40" />
+                                                      </Link>
+  
+                                                      
+                                                  </div>
                                                 </div>
                                             </Form>
                                         </div>
                                     </CardBody>
                                 </Card>
                                 <div className="mt-4 text-center">
-                                    <p className="mb-0">Already have an account ? <Link to="/login" className="fw-semibold text-primary text-decoration-underline"> Signin </Link> </p>
+                                    <p className="mb-0">Already have an account ? <Link to="/login" className="fw-semibold text-primary text-decoration-underline"> 로그인 </Link> </p>
                                 </div>
+                            </Col>
+                            <Col md={8} lg={6} xl={5} className="">
+                            <img src={doctor} alt="" height="400" />
                             </Col>
                         </Row>
                     </Container>

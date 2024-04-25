@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import {
-    Col,
+   Col,
     Row,
     Button,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownItem,
     DropdownMenu,
+    
 } from "reactstrap";
+
 import { Link } from "react-router-dom";
 import Flatpickr from "react-flatpickr";
 import Select from "react-select";
@@ -36,6 +38,15 @@ const CustomersGlobalFilter = () => {
         setcustomerStatus(customerStatus);
     }
 
+    const [pageSize, setPageSize] = React.useState('10'); // Default page size
+
+    const handlePageSizeChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+        setPageSize(event.target.value);
+    };
+    
+
+
+
     const customerstatus = [
         {
             options: [
@@ -51,6 +62,43 @@ const CustomersGlobalFilter = () => {
         <React.Fragment>
             <Col xl={7}>
                 <Row className="g-3">
+                <Col sm={3}>
+                        <div>
+                            <button
+                                type="button"
+                                className="btn btn-success w-100"
+                            >
+                                {" "}
+                                <i className="ri-equalizer-fill me-2 align-bottom"></i>
+                               검색
+                            </button>
+                        </div>
+                    </Col>
+
+                    <Col sm={3}>
+                        <div>
+                            <button
+                                type="button"
+                                className="btn btn-info w-100"
+                            >
+                                {" "}
+                                <i className="ri-equalizer-fill me-2 align-bottom"></i>
+                                처음
+                            </button>
+                        </div>
+                    </Col>
+                    <Col sm={3}>
+                        <div>
+                            <button
+                                type="button"
+                                className="btn btn-secondary w-100"
+                            >
+                                {" "}
+                                <i className="ri-equalizer-fill me-2 align-bottom"></i>
+                                상세검색
+                            </button>
+                        </div>
+                    </Col>
                     <Col sm={4}>
                         <div className="">
                             <Flatpickr
@@ -67,6 +115,28 @@ const CustomersGlobalFilter = () => {
                         </div>
                     </Col>
 
+                    <Col sm={4} class="row align-items-center">
+                        <p>가입형테</p>
+                        <div>
+                            <Select
+                                value={customerStatus}
+                                onChange={handlecustomerStatus}
+                                options={customerstatus}
+                                name="choices-single-default"
+                                id="idStatus"
+                            ></Select>
+                        </div>
+                        <div>
+                            <Select
+                                value={customerStatus}
+                                onChange={handlecustomerStatus}
+                                options={customerstatus}
+                                name="choices-single-default"
+                                id="idStatus"
+                            ></Select>
+                        </div>
+                    </Col>
+                    
                     <Col sm={4}>
                         <div>
                             <Select
@@ -78,20 +148,9 @@ const CustomersGlobalFilter = () => {
                             ></Select>
                         </div>
                     </Col>
-
-                    <Col sm={4}>
-                        <div>
-                            <button
-                                type="button"
-                                className="btn btn-info w-100"
-                            >
-                                {" "}
-                                <i className="ri-equalizer-fill me-2 align-bottom"></i>
-                                Filters
-                            </button>
-                        </div>
-                    </Col>
+                   
                 </Row>
+                
             </Col>
         </React.Fragment>
     );

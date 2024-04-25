@@ -280,39 +280,10 @@ const MemberWithdrawal = () => {
         enableColumnFilter: false,
       },
       {
-        header: "이름23",
+        header: "이름",
         accessorKey: "customer",
         enableColumnFilter: false,
       },
-      // {
-      //   header: "신상",
-      //   cell: (cellProps: any) => {
-      //     return (
-      //       <ul className="list-inline hstack gap-2 mb-0">
-      //         <li className="list-inline-item edit" title="Edit">
-      //           <Link
-      //             to="#"
-      //             className="text-primary d-inline-block edit-item-btn"
-      //             onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
-      //           >
-
-      //             <i className="ri-pencil-fill fs-16"></i>
-      //           </Link>
-      //         </li>
-      //         <li className="list-inline-item" title="Remove">
-      //           <Link
-      //             to="#"
-      //             className="text-danger d-inline-block remove-item-btn"
-      //             onClick={() => { const customerData = cellProps.row.original; onClickDelete(customerData); }}
-      //           >
-      //             <i className="ri-delete-bin-5-fill fs-16"></i>
-      //           </Link>
-      //         </li>
-      //       </ul>
-      //     );
-      //   },
-      // },
-    
       {
         header: "신상",
         cell: (cellProps: any) => {
@@ -423,7 +394,7 @@ const MemberWithdrawal = () => {
   // Export Modal
   const [isExportCSV, setIsExportCSV] = useState<boolean>(false);
 
-  document.title = "Customers | Velzon - React Admin & Dashboard Template";
+  document.title = "Customers | Healthcare - React Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">
@@ -454,7 +425,7 @@ const MemberWithdrawal = () => {
                   <Row className="g-4 align-items-center">
                     <div className="col-sm">
                       <div>
-                        <h5 className="card-title mb-0">Customer List</h5>
+                        <h5 className="card-title mb-0">탈퇴회원목록</h5>
                       </div>
                     </div>
                     <div className="col-sm-auto">
@@ -462,7 +433,7 @@ const MemberWithdrawal = () => {
                         {isMultiDeleteButton && <button className="btn btn-soft-danger me-1"
                           onClick={() => setDeleteModalMulti(true)}
                         ><i className="ri-delete-bin-2-line"></i></button>}
-                        <button
+                        {/* <button
                           type="button"
                           className="btn btn-success add-btn me-1"
                           id="create-btn"
@@ -470,10 +441,10 @@ const MemberWithdrawal = () => {
                         >
                           <i className="ri-add-line align-bottom me-1"></i> Add
                           Customer
-                        </button>{" "}
-                        <button type="button" className="btn btn-secondary" onClick={() => setIsExportCSV(true)}>
+                        </button>{" "} */}
+                        <button type="button" className="btn btn-success" onClick={() => setIsExportCSV(true)}>
                           <i className="ri-file-download-line align-bottom me-1"></i>{" "}
-                          Export
+                          엑셀다운로드
                         </button>
                       </div>
                     </div>
@@ -489,8 +460,10 @@ const MemberWithdrawal = () => {
                         isGlobalFilter={true}
                         customPageSize={10}
                         isCustomerFilter={true}
+                        divClass="table-responsive table-card mb-3"
+                        tableClass="align-middle table-nowrap"
                         theadClass="table-light text-muted"
-                        SearchPlaceholder='Search for customer, email, phone, status or something...'
+                        SearchPlaceholder='아이디, 이름, 연락처 검색'
                       />
                     ) : (<Loader error={error} />)
                     }

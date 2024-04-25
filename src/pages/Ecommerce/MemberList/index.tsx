@@ -265,7 +265,7 @@ const MemberList = () => {
         enableSorting: false,
       },
       {
-        header: "번호12",
+        header: "번호",
         cell: (cell: any) => {
           return cell.row.index + 1; // Jadvalning qator indeksi + 1, raqamni olish uchun
         },
@@ -284,35 +284,6 @@ const MemberList = () => {
         accessorKey: "customer",
         enableColumnFilter: false,
       },
-      // {
-      //   header: "신상",
-      //   cell: (cellProps: any) => {
-      //     return (
-      //       <ul className="list-inline hstack gap-2 mb-0">
-      //         <li className="list-inline-item edit" title="Edit">
-      //           <Link
-      //             to="#"
-      //             className="text-primary d-inline-block edit-item-btn"
-      //             onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
-      //           >
-
-      //             <i className="ri-pencil-fill fs-16"></i>
-      //           </Link>
-      //         </li>
-      //         <li className="list-inline-item" title="Remove">
-      //           <Link
-      //             to="#"
-      //             className="text-danger d-inline-block remove-item-btn"
-      //             onClick={() => { const customerData = cellProps.row.original; onClickDelete(customerData); }}
-      //           >
-      //             <i className="ri-delete-bin-5-fill fs-16"></i>
-      //           </Link>
-      //         </li>
-      //       </ul>
-      //     );
-      //   },
-      // },
-    
       {
         header: "신상",
         cell: (cellProps: any) => {
@@ -454,7 +425,7 @@ const MemberList = () => {
                   <Row className="g-4 align-items-center">
                     <div className="col-sm">
                       <div>
-                        <h5 className="card-title mb-0">Customer List</h5>
+                        <h5 className="card-title mb-0">회원목록</h5>
                       </div>
                     </div>
                     <div className="col-sm-auto">
