@@ -113,13 +113,15 @@ const MemberList = () => {
       phone: (customer && customer.phone) || '',
       date: (customer && customer.date) || '',
       status: (customer && customer.status) || '',
+      company: (customer && customer.company) || '',
     },
     validationSchema: Yup.object({
       customer: Yup.string().required("Please Enter Customer Name"),
       email: Yup.string().required("Please Enter Your Email"),
       phone: Yup.string().required("Please Enter Your Phone"),
       date: Yup.string().required("Please Enter date"),
-      status: Yup.string().required("Please Enter Your Status")
+      status: Yup.string().required("Please Enter Your Status"),
+      company: Yup.string().required("Please Enter Company"),
     }),
     onSubmit: (values) => {
       if (isEdit) {
@@ -130,6 +132,7 @@ const MemberList = () => {
           phone: values.phone,
           date: values.date,
           status: values.status,
+          company: values.company,
         };
         // update customer
         dispatch(onUpdateCustomer(updateCustomer));
@@ -141,7 +144,8 @@ const MemberList = () => {
           email: values["email"],
           phone: values["phone"],
           date: values["date"],
-          status: values["status"]
+          status: values["status"],
+          company: values["company"],
         };
         // save new customer
         dispatch(onAddNewCustomer(newCustomer));
@@ -170,6 +174,7 @@ const MemberList = () => {
       phone: customer.phone,
       date: customer.date,
       status: customer.status,
+      company: customer.company,
     });
 
     setIsEdit(true);
@@ -461,6 +466,8 @@ const MemberList = () => {
                         customPageSize={10}
                         isCustomerFilter={true}
                         theadClass="table-light text-muted"
+                        divClass="table-responsive table-card mb-3"
+                        tableClass="align-middle table-nowrap" 
                         SearchPlaceholder='Search for customer, email, phone, status or something...'
                       />
                     ) : (<Loader error={error} />)
@@ -569,6 +576,36 @@ const MemberList = () => {
                           ) : null}
 
                         </div>
+                    
+      <div>
+        <Label
+          htmlFor="company_name-field"
+          className="form-label"
+        >
+       병원명
+        </Label>
+        <Input
+          name="company_name"
+          id="company_name-field"
+          className="form-control"
+          placeholder="병원명"
+          type="text"
+          validate={{
+            required: { value: true },
+          }}
+          onChange={validation.handleChange}
+          onBlur={validation.handleBlur}
+          value={validation.values.company || ""}
+          invalid={
+            validation.touched.company && validation.errors.company ? true : false
+          }
+        />
+        {validation.touched.company && validation.errors.company ? (
+          <FormFeedback type="invalid">{validation.errors.company}</FormFeedback>
+        ) : null}
+
+      </div>
+    
 
                         <div className="mb-3">
                           <Label htmlFor="date-field" className="form-label">

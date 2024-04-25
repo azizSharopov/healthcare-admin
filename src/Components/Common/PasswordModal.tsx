@@ -17,18 +17,23 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ onCancel, onConfirm }) =>
   };
 
   return (
-    <div className="password-modal">
-      <div className="password-modal-content">
-        <h2>Parolni Tasdiqlang</h2>
-        <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          placeholder="Parol"
-        />
-        <div className="password-modal-buttons">
-          <button onClick={onCancel}>Bekor qilish</button>
-          <button onClick={handleConfirmClick}>Tasdiqlash</button>
+    <div className="d-flex justify-content-center p-5">
+      <div className="card">
+        <div className="card-header">
+          <h5 className="card-title justify-content-center">비밀번호</h5>
+        </div>
+        <div className="card-body">
+          <input
+            type="password"
+            className="form-control"
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="비밀번호를 입력해 주십시오"
+          />
+          <div className="d-grid gap-2 d-md-flex justify-content-center p-2">
+            <button type="button" className="btn btn-secondary" onClick={onCancel}>취소</button>
+            <button type="button" className="btn btn-danger" onClick={handleConfirmClick}>삭제</button>
+          </div>
         </div>
       </div>
     </div>
@@ -36,3 +41,6 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ onCancel, onConfirm }) =>
 };
 
 export default PasswordModal;
+
+
+
