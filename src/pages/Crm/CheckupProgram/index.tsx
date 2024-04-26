@@ -347,7 +347,7 @@ const CheckupProgram = () => {
         ),
       },
       {
-        header: "검진프로그램명78",
+        header: "검진프로그램명",
         accessorKey: "owner",
         enableColumnFilter: false,
       },

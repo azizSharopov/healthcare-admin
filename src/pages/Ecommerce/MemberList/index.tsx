@@ -19,6 +19,8 @@ import Flatpickr from "react-flatpickr";
 import { isEmpty } from "lodash";
 import moment from "moment";
 
+import "flatpickr/dist/themes/material_green.css"; // or any theme you prefer
+
 // Formik
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -70,12 +72,11 @@ const MemberList = () => {
   const [customer, setCustomer] = useState<any>([]);
 
   
-  const [pageSize, setPageSize] = useState(10); // Default qiymat 10
-  const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setPageSize(Number(event.target.value)); // Inputdan kelgan qiymatni o'qib olamiz va uni son sifatida saqlaymiz
-  };
+  const [pageSize, setPageSize] = useState('10'); // Default page size
+    const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setPageSize(event.target.value);
+    };
  
-
   // Delete customer
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteModalMulti, setDeleteModalMulti] = useState<boolean>(false);
@@ -463,24 +464,8 @@ const MemberList = () => {
                 </CardHeader>
 
                 <div className="card-body pt-0">
-                  {/* <div>
-                    {isCustomerSuccess && customers.length ? (
-                      <TableContainer
-                        columns={columns}
-                        data={(customers || [])}
-                        isGlobalFilter={true}
-                        customPageSize={10}
-                        isCustomerFilter={true}
-                        theadClass="table-light text-muted"
-                        divClass="table-responsive table-card mb-3"
-                        tableClass="align-middle table-nowrap" 
-                        SearchPlaceholder='Search for customer, email, phone, status or something...'
-                      />
-                    ) : (<Loader error={error} />)
-                    }
-                  </div>
-                  */}
-                      <div className="mb-3">
+               
+                      {/* <div className="mb-3">
   <label htmlFor="pageSize" className="form-label form-select-sm">리스트:</label>
   <select
     id="pageSize"
@@ -493,9 +478,8 @@ const MemberList = () => {
     <option value="50">50</option>
     <option value="100">100</option>
   </select>
-</div>
-                  <div>
-                 
+</div> */}
+          <div className="card-body pt-0">
       {isCustomerSuccess && customers.length ? (
         <TableContainer
           columns={columns}
@@ -548,7 +532,7 @@ const MemberList = () => {
                             htmlFor="customername-field"
                             className="form-label"
                           >
-                           회원 이름
+                           회원 이름12
                           </Label>
                           <Input
                             name="customer"

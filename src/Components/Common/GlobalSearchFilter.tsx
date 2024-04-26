@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import Flatpickr from "react-flatpickr";
 import Select from "react-select";
 
+import "flatpickr/dist/themes/material_green.css"; // or any theme you prefer
 
 const ProductsGlobalFilter = () => {
     return (
@@ -35,21 +36,45 @@ const ProductsGlobalFilter = () => {
 };
 const CustomersGlobalFilter = () => {
     const [customerStatus, setcustomerStatus] = useState<any>(null);
+    const [customerSignupType, setcustomerSignupType] = useState<any>(null);
     const [isOpen, setIsOpen] = useState(false); // Yangi oyna ochish uchun muhit o'zgaruvchisi
 
+    const [dateRange, setDateRange] = useState<Date[]>([new Date(), new Date()]); // Using Date[] type for range
+    const [customers, setCustomers] = useState([]); // Assuming customers are stored in an array
+    const [sortingMethod, setSortingMethod] = useState<string>(""); // State for sorting method
 
     function handlecustomerStatus(customerStatus:any) {
         setcustomerStatus(customerStatus);
     }
-
-    // const [pageSize, setPageSize] = React.useState('10'); // Default page size
+    function handlecustomerSignupType(customerStatus:any) {
+        setcustomerSignupType(customerStatus);
+    }
+    const handleSortingMethodChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSortingMethod(event.target.value);
+        // You can perform any actions here based on the selected sorting method
+    };
+    const sortingMethodOptions = [
+        { label: "아이디", value: "아이디" },
+        { label: "이름", value: "이름" },
+    ];
     const customerstatus = [
         {
             options: [
-                { label: "Status", value: "Status" },
-                { label: "All", value: "All" },
-                { label: "Active", value: "Active" },
-                { label: "Block", value: "Block" },
+                { label: "제휴사", value: "제휴사" },
+                { label: "일반회원", value: "일반회원" },
+              
+            ],
+        },
+    ];
+
+    const customersignuptype = [
+        {
+            options: [
+                { label: "HMM", value: "HMM" },
+                { label: "네이버", value: "네이버" },
+                { label: "한화건설", value: "한화건설" },
+                { label: "이비코리아", value: "이비코리아" },
+            
             ],
         },
     ];
@@ -61,11 +86,32 @@ const CustomersGlobalFilter = () => {
         setIsOpen(!isOpen); // Yangi oyna ochish yoki yopish
       };
 
+      const handleDateChange = (dates: Date[]) => {
+        if (Array.isArray(dates) && dates.length === 2) {
+            setDateRange(dates);
+            searchCustomers(dates);
+        }
+    };
+
+    const searchCustomers = async (dates: Date[]) => {
+        const [start, end] = dates;
+        // Example API call
+        const response = await fetch(`/api/customers?start=${start.toISOString()}&end=${end.toISOString()}`);
+        const data = await response.json();
+        setCustomers(data);
+    };
+
+    const [pageSize, setPageSize] = useState('10'); // Default page size
+    const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setPageSize(event.target.value);
+    };
+ 
+
     return (
         <React.Fragment>
             <Col xl={7}>
                 <Row className="g-3">
-                <Col sm={3}>
+                {/* <Col sm={3}>
                         <div>
                             <button
                                 type="button"
@@ -76,9 +122,9 @@ const CustomersGlobalFilter = () => {
                                검색
                             </button>
                         </div>
-                    </Col>
+                    </Col> */}
 
-                    <Col sm={3}>
+                    {/* <Col sm={3}>
                         <div>
                             <button
                                 type="button"
@@ -89,69 +135,96 @@ const CustomersGlobalFilter = () => {
                                 처음
                             </button>
                         </div>
-                    </Col>
-                    <Col sm={3}>
+                    </Col> */}
+                    {/* <Col sm={3}>
                         <div>
                             <button
                                 type="button"
                                 className="btn btn-secondary w-100"
                                 onClick={handleSearch}
+                               
+
                             >
                                 {" "}
                                 <i className="ri-equalizer-fill me-2 align-bottom"></i>
                                 상세검색
                             </button>
                         </div>
-                    </Col>
-                
+                    </Col> */}
+                 
                     <Col sm={4}>
-                        <div className="">
+                        <div className="form-group">
+                            <label htmlFor="date-range">가입기간:</label>
                             <Flatpickr
                                 className="form-control"
-                                id="datepicker-publish-input"
-                                placeholder="Select a date"
+                                value={dateRange}
+                                onChange={handleDateChange}
                                 options={{
-                                    altInput: true,
-                                    altFormat: "F j, Y",
-                                    mode: "multiple",
-                                    dateFormat: "d.m.y",
+                                    mode: 'range',
+                                    dateFormat: "Y-m-d"
                                 }}
                             />
                         </div>
-                    </Col>
-
-                    <Col sm={4} class="row align-items-center">
-                        <p>가입형테</p>
-                        <div>
-                            <Select
-                                value={customerStatus}
-                                onChange={handlecustomerStatus}
-                                options={customerstatus}
-                                name="choices-single-default"
-                                id="idStatus"
-                            ></Select>
-                        </div>
-                        <div>
-                            <Select
-                                value={customerStatus}
-                                onChange={handlecustomerStatus}
-                                options={customerstatus}
-                                name="choices-single-default"
-                                id="idStatus"
-                            ></Select>
-                        </div>
+                 
                     </Col>
                     
-                    <Col sm={4}>
-                        <div>
+
+                    <Col sm={3}>
+                    <label htmlFor="sortingMethod" className="form-label form-select-label">정렬방식:</label>
+                        <div >
                             <Select
                                 value={customerStatus}
                                 onChange={handlecustomerStatus}
                                 options={customerstatus}
                                 name="choices-single-default"
                                 id="idStatus"
+                               
                             ></Select>
                         </div>
+                        <div >
+                            <Select
+                                value={customerSignupType}
+                                onChange={handlecustomerSignupType}
+                                options={customersignuptype}
+                                name="choices-single-default"
+                                id="idStatus"
+                             
+                            ></Select>
+                        </div>
+                    </Col>
+                    <Col sm={3}>
+                         {/* Sorting method select */}
+           
+                <label htmlFor="sortingMethod" className="form-label form-select-label">정렬방식:</label>
+                <select
+                    id="sortingMethod"
+                    className="form-select form-select mb-3"
+                    value={sortingMethod}
+                    onChange={handleSortingMethodChange}
+                >
+                    <option value="">선택</option>
+                    {sortingMethodOptions.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                </select>
+          
+                    </Col>
+                    <Col sm={2}>
+                   
+                      <label htmlFor="pageSize" className="form-label form-select-label">리스트:</label>
+                      <select
+                        id="pageSize"
+                        // className="form-select form-select-sm mb-3"
+                        className="form-select form-select mb-3"
+                        value={pageSize}
+                        onChange={handlePageSizeChange}
+                     >
+                       <option value="10">10</option>
+                       <option value="20">20</option>
+                       <option value="50">50</option>
+                       <option value="100">100</option>
+                      </select>
+                   
                     </Col>
                    
                 </Row>
