@@ -69,6 +69,11 @@ const MemberList = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [customer, setCustomer] = useState<any>([]);
 
+  
+  const [pageSize, setPageSize] = useState(10); // Default qiymat 10
+  const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPageSize(Number(event.target.value)); // Inputdan kelgan qiymatni o'qib olamiz va uni son sifatida saqlaymiz
+  };
  
 
   // Delete customer
@@ -92,6 +97,8 @@ const MemberList = () => {
         { label: "상태", value: "상태" },
         { label: "정상", value: "정상" },
         { label: "정지", value: "정지" },
+        { label: "휴먼", value: "휴먼" },
+        { label: "탈퇴대기", value: "탈퇴대기"},
       ],
     },
   ];
@@ -399,7 +406,7 @@ const MemberList = () => {
   // Export Modal
   const [isExportCSV, setIsExportCSV] = useState<boolean>(false);
 
-  document.title = "Customers | Velzon - React Admin & Dashboard Template";
+  document.title = "Customers | Healthcare - React Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">
@@ -440,16 +447,15 @@ const MemberList = () => {
                         ><i className="ri-delete-bin-2-line"></i></button>}
                         <button
                           type="button"
-                          className="btn btn-success add-btn me-1"
+                          className="btn btn-secondary add-btn me-1"
                           id="create-btn"
                           onClick={() => { setIsEdit(false); toggle(); }}
                         >
-                          <i className="ri-add-line align-bottom me-1"></i> Add
-                          Customer
+                          <i className="ri-add-line align-bottom me-1"></i> 등록
                         </button>{" "}
-                        <button type="button" className="btn btn-secondary" onClick={() => setIsExportCSV(true)}>
+                        <button type="button" className="btn btn-success" onClick={() => setIsExportCSV(true)}>
                           <i className="ri-file-download-line align-bottom me-1"></i>{" "}
-                          Export
+                          엑셀다운로드
                         </button>
                       </div>
                     </div>
@@ -457,7 +463,7 @@ const MemberList = () => {
                 </CardHeader>
 
                 <div className="card-body pt-0">
-                  <div>
+                  {/* <div>
                     {isCustomerSuccess && customers.length ? (
                       <TableContainer
                         columns={columns}
@@ -473,7 +479,39 @@ const MemberList = () => {
                     ) : (<Loader error={error} />)
                     }
                   </div>
+                  */}
+                      <div className="mb-3">
+  <label htmlFor="pageSize" className="form-label form-select-sm">리스트:</label>
+  <select
+    id="pageSize"
+    className="form-select form-select-sm mb-3" 
+    value={pageSize}
+    onChange={handlePageSizeChange}
+  >
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+  </select>
+</div>
+                  <div>
                  
+      {isCustomerSuccess && customers.length ? (
+        <TableContainer
+          columns={columns}
+          data={customers}
+          isGlobalFilter={true}
+          customPageSize={pageSize}
+          isCustomerFilter={true}
+          theadClass="table-light text-muted"
+          divClass="table-responsive table-card mb-3"
+          tableClass="align-middle table-nowrap"
+          SearchPlaceholder='아이디, 이름, 연락처 검색...'
+        />
+      ) : (
+        <Loader error={error} />
+      )}
+    </div>
               
 
                   <Modal id="showModal" isOpen={modal} toggle={toggle} centered>
@@ -510,13 +548,13 @@ const MemberList = () => {
                             htmlFor="customername-field"
                             className="form-label"
                           >
-                            Customer Name
+                           회원 이름
                           </Label>
                           <Input
                             name="customer"
                             id="customername-field"
                             className="form-control"
-                            placeholder="Enter Name"
+                            placeholder="이름을 입력하세요"
                             type="text"
                             validate={{
                               required: { value: true },
@@ -535,13 +573,13 @@ const MemberList = () => {
 
                         <div className="mb-3">
                           <Label htmlFor="email-field" className="form-label">
-                            Email
+                          이메일
                           </Label>
                           <Input
                             name="email"
                             type="email"
                             id="email-field"
-                            placeholder="Enter Email"
+                            placeholder="이메일 주소를 입력하세요"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             value={validation.values.email || ""}
@@ -557,13 +595,13 @@ const MemberList = () => {
 
                         <div className="mb-3">
                           <Label htmlFor="phone-field" className="form-label">
-                            Phone
+                            연락처
                           </Label>
                           <Input
                             name="phone"
                             type="text"
                             id="phone-field"
-                            placeholder="Enter Phone no."
+                            placeholder="연락처를 입력해주세요"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             value={validation.values.phone || ""}
@@ -577,22 +615,22 @@ const MemberList = () => {
 
                         </div>
                     
-      <div>
+                        <div>
         <Label
           htmlFor="company_name-field"
           className="form-label"
         >
-       병원명
+       회원그룹
         </Label>
         <Input
           name="company_name"
           id="company_name-field"
           className="form-control"
-          placeholder="병원명"
+          placeholder="회원그룹을 입력해주세요"
           type="text"
           validate={{
             required: { value: true },
-          }}
+          }} 
           onChange={validation.handleChange}
           onBlur={validation.handleBlur}
           value={validation.values.company || ""}
@@ -609,14 +647,14 @@ const MemberList = () => {
 
                         <div className="mb-3">
                           <Label htmlFor="date-field" className="form-label">
-                            Joining Date
+                            등록일
                           </Label>
 
                           <Flatpickr
                             name="date"
                             id="date-field"
                             className="form-control"
-                            placeholder="Select a date"
+                            placeholder="등록일을 입력해주세요"
                             options={{
                               altInput: true,
                               altFormat: "d M, Y",
@@ -741,3 +779,4 @@ const MemberList = () => {
 };
 
 export default MemberList;
+

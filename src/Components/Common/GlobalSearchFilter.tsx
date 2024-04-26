@@ -9,10 +9,12 @@ import {
     DropdownMenu,
     
 } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import { Link } from "react-router-dom";
 import Flatpickr from "react-flatpickr";
 import Select from "react-select";
+
 
 const ProductsGlobalFilter = () => {
     return (
@@ -33,20 +35,14 @@ const ProductsGlobalFilter = () => {
 };
 const CustomersGlobalFilter = () => {
     const [customerStatus, setcustomerStatus] = useState<any>(null);
+    const [isOpen, setIsOpen] = useState(false); // Yangi oyna ochish uchun muhit o'zgaruvchisi
+
 
     function handlecustomerStatus(customerStatus:any) {
         setcustomerStatus(customerStatus);
     }
 
-    const [pageSize, setPageSize] = React.useState('10'); // Default page size
-
-    const handlePageSizeChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-        setPageSize(event.target.value);
-    };
-    
-
-
-
+    // const [pageSize, setPageSize] = React.useState('10'); // Default page size
     const customerstatus = [
         {
             options: [
@@ -57,6 +53,13 @@ const CustomersGlobalFilter = () => {
             ],
         },
     ];
+    const handleSearch = () => {
+        console.log("Search button clicked");
+      };
+    
+      const toggleModal = () => {
+        setIsOpen(!isOpen); // Yangi oyna ochish yoki yopish
+      };
 
     return (
         <React.Fragment>
@@ -92,6 +95,7 @@ const CustomersGlobalFilter = () => {
                             <button
                                 type="button"
                                 className="btn btn-secondary w-100"
+                                onClick={handleSearch}
                             >
                                 {" "}
                                 <i className="ri-equalizer-fill me-2 align-bottom"></i>
@@ -99,6 +103,7 @@ const CustomersGlobalFilter = () => {
                             </button>
                         </div>
                     </Col>
+                
                     <Col sm={4}>
                         <div className="">
                             <Flatpickr
@@ -152,6 +157,16 @@ const CustomersGlobalFilter = () => {
                 </Row>
                 
             </Col>
+             {/* Modal component */}
+      <Modal isOpen={isOpen} toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>Modal Title</ModalHeader>
+        <ModalBody>
+          {/* Modal body content goes here */}
+        </ModalBody>
+        <ModalFooter>
+          {/* Modal footer content goes here */}
+        </ModalFooter>
+      </Modal>
         </React.Fragment>
     );
 };

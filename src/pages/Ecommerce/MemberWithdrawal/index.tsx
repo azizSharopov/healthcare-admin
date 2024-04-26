@@ -92,6 +92,8 @@ const MemberWithdrawal = () => {
         { label: "상태", value: "상태" },
         { label: "정상", value: "정상" },
         { label: "정지", value: "정지" },
+        { label: "휴먼", value: "휴먼" },
+        { label: "탈퇴대기", value: "탈퇴대기"},
       ],
     },
   ];
@@ -463,7 +465,7 @@ const MemberWithdrawal = () => {
                         divClass="table-responsive table-card mb-3"
                         tableClass="align-middle table-nowrap"
                         theadClass="table-light text-muted"
-                        SearchPlaceholder='아이디, 이름, 연락처 검색'
+                        SearchPlaceholder='아이디, 이름, 연락처 검색...'
                       />
                     ) : (<Loader error={error} />)
                     }

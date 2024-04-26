@@ -210,6 +210,11 @@ import Kanbanboard from "pages/Tasks/KanbanBoard";
 import MemberList from "pages/Ecommerce/MemberList";
 import MemberWithdrawal from "../pages/Ecommerce/MemberWithdrawal/index";
 
+// Hospital Management
+import HospitalList from "pages/Crm/HospitalList";
+import CheckupProgram from "pages/Crm/CheckupProgram";
+
+
 
 const authProtectedRoutes = [
   { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
@@ -236,6 +241,9 @@ const authProtectedRoutes = [
 
   { path: "/apps-member-list", component: <MemberList /> },
   { path: "/apps-member-withdrawal", component: <MemberWithdrawal /> },
+
+  { path: "/apps-hospital-list", component: <HospitalList /> },
+  { path: "/apps-checkup-program", component: <CheckupProgram /> },
 
   //Chat
   { path: "/apps-chat", component: <Chat /> },

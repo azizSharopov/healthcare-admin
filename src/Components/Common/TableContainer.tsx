@@ -206,8 +206,9 @@ const TableContainer = ({
               {isProductsFilter && (
                 <ProductsGlobalFilter />
               )}
-              {isCustomerFilter && (
-                <CustomersGlobalFilter />
+              { isCustomerFilter && (
+
+              < CustomersGlobalFilter/>
               )}
               {isOrderFilter && (
                 <OrderGlobalFilter />

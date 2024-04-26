@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { isEmpty } from "lodash";
 
 // Import Images
-import avatar10 from "../../assets/images/users/avatar-10.jpg";
+import avatar10 from "../../../assets/images/users/avatar-10.jpg";
 
 import {
   Col,
@@ -29,11 +29,11 @@ import {
 } from "reactstrap";
 import Select from "react-select";
 
-import BreadCrumb from "../../Components/Common/BreadCrumb";
-import DeleteModal from "../../Components/Common/DeleteModal";
+import BreadCrumb from "../../../Components/Common/BreadCrumb";
+import DeleteModal from "../../../Components/Common/DeleteModal";
 
 // Export Modal
-import ExportCSVModal from "../../Components/Common/ExportCSVModal";
+import ExportCSVModal from "../../../Components/Common/ExportCSVModal";
 
 //Import actions
 import {
@@ -41,25 +41,26 @@ import {
   addNewContact as onAddNewContact,
   updateContact as onUpdateContact,
   deleteContact as onDeleteContact,
-} from "../../slices/thunks";
+} from "../../../slices/thunks";
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import TableContainer from "../../Components/Common/TableContainer";
+import TableContainer from "../../../Components/Common/TableContainer";
 
 // Formik
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import Loader from "../../Components/Common/Loader";
+import Loader from "../../../Components/Common/Loader";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createSelector } from "reselect";
 import moment from "moment";
 
-import dummyImg from "../../assets/images/users/user-dummy-img.jpg";
+import dummyImg from "../../../assets/images/users/user-dummy-img.jpg";
 
 
-const CrmContacts = () => {
+
+const HospitalList = () => {
   const dispatch: any = useDispatch();
   const selectLayoutState = (state: any) => state.Crm;
   const crmcontactData = createSelector(
@@ -967,4 +968,4 @@ const CrmContacts = () => {
   );
 };
 
-export default CrmContacts;
+export default HospitalList;

@@ -240,9 +240,8 @@ const Navdata = () => {
                     parentId: "apps",
                     stateVariables: isCRM,
                     childItems: [
-                        { id: 1, label: "병원목록", link: "/apps-crm-contacts" },
-                        { id: 2, label: "검진프로그램", link: "/apps-crm-companies" },
-                        
+                        { id: 1, label: "병원목록", link: "/apps-hospital-list" },
+                        { id: 2, label: "검진프로그램", link: "/apps-checkup-program" },
                     ]
                 },
                 {
