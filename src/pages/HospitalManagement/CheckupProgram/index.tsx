@@ -48,7 +48,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 // Export Modal
-import ExportCSVModal from "../.././../Components/Common/ExportCSVModal";
+import ExportCSVModal from "../../../Components/Common/ExportCSVModal";
 
 import Loader from "../../../Components/Common/Loader";
 import { toast, ToastContainer } from 'react-toastify';
@@ -480,10 +480,10 @@ const CheckupProgram = () => {
                         {isMultiDeleteButton && <button className="btn btn-soft-secondary" id="remove-actions"
                           onClick={() => setDeleteModalMulti(true)}
                         ><i className="ri-delete-bin-2-line"></i></button>}
-                        <button className="btn btn-secondary">
+                        {/* <button className="btn btn-secondary">
                           <i className="ri-filter-2-line me-1 align-bottom"></i>{" "}
                           Filters
-                        </button>
+                        </button> */}
                         <button type="button" className="btn btn-success" onClick={() => setIsExportCSV(true)}>
                           <i className="ri-file-download-line align-bottom me-1"></i>{" "}
                           엑셀다운로드
