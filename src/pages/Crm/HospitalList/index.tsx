@@ -498,7 +498,7 @@ const HospitalList = () => {
   // Export Modal
   const [isExportCSV, setIsExportCSV] = useState<boolean>(false);
 
-  document.title = "Contacts | Velzon - React Admin & Dashboard Template";
+  document.title = "Contacts | Healthcare - React Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">
@@ -521,7 +521,7 @@ const HospitalList = () => {
           onCloseClick={() => setDeleteModalMulti(false)}
         />
         <Container fluid>
-          <BreadCrumb title="Contacts" pageTitle="CRM" />
+          <BreadCrumb title="병원목록" pageTitle="병원관리" />
           <Row>
             <Col lg={12}>
               <Card>
@@ -534,8 +534,7 @@ const HospitalList = () => {
                           setModal(true);
                         }}
                       >
-                        <i className="ri-add-fill me-1 align-bottom"></i> Add
-                        Contacts
+                        <i className="ri-add-fill me-1 align-bottom"></i> 병원 등록
                       </button>
                     </div>
                     <div className="flex-shrink-0">
@@ -543,11 +542,14 @@ const HospitalList = () => {
                         {isMultiDeleteButton && <button className="btn btn-soft-danger" id="remove-actions"
                           onClick={() => setDeleteModalMulti(true)}
                         ><i className="ri-delete-bin-2-line"></i></button>}
-                        <button className="btn btn-secondary">
+                        {/* <button className="btn btn-secondary">
                           <i className="ri-filter-2-line me-1 align-bottom"></i>{" "}
                           Filters
+                        </button> */}
+                        <button type="button" className="btn btn-success" onClick={() => setIsExportCSV(true)}>
+                          <i className="ri-file-download-line align-bottom me-1"></i>{" "}
+                          엑셀다운로드
                         </button>
-                        <button className="btn btn-soft-success" onClick={() => setIsExportCSV(true)}>Export</button>
 
                         <UncontrolledDropdown>
                           <DropdownToggle

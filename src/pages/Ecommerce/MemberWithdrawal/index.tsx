@@ -419,7 +419,7 @@ const MemberWithdrawal = () => {
           onCloseClick={() => setDeleteModalMulti(false)}
         />
         <Container fluid>
-          <BreadCrumb title="회원관리" pageTitle="회원목록" />
+          <BreadCrumb title="탈퇴회원목록" pageTitle="회원관리" />
           <Row>
             <Col lg={12}>
               <Card id="customerList">
@@ -689,7 +689,7 @@ const MemberWithdrawal = () => {
                       </ModalBody>
                       <ModalFooter>
                         <div className="hstack gap-2 justify-content-end">
-                          <button type="button" className="btn btn-light" onClick={() => { setModal(false); }}> Close </button>
+                          <button type="button" className="btn btn-light" onClick={() => { setModal(false); }}> 목록 </button>
 
                           <button type="submit" className="btn btn-success"> {!!isEdit ? "Update" : "Add Customer"} </button>
                         </div>

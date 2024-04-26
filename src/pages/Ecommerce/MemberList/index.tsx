@@ -49,6 +49,19 @@ import Loader from "../../../Components/Common/Loader";
 import ExportCSVModal from "../../../Components/Common/ExportCSVModal";
 import { createSelector } from "reselect";
 
+// Define the calculateAge function outside the component
+const calculateAge = (birthdate: string) => {
+  const today = new Date();
+  const dob = new Date(birthdate);
+  let age = today.getFullYear() - dob.getFullYear();
+  const month = today.getMonth() - dob.getMonth();
+
+  if (month < 0 || (month === 0 && today.getDate() < dob.getDate())) {
+    age--;
+  }
+
+  return age;
+};
 
 const MemberList = () => {
   const dispatch: any = useDispatch();
@@ -117,30 +130,50 @@ const MemberList = () => {
 
     initialValues: {
       customer: (customer && customer.customer) || '',
+      name: (customer && customer.customer) || '',
+      password: (customer && customer.customer) || '',
+      confirm_password: (customer && customer.customer) || '',
       email: (customer && customer.email) || '',
       phone: (customer && customer.phone) || '',
       date: (customer && customer.date) || '',
       status: (customer && customer.status) || '',
       company: (customer && customer.company) || '',
+      signuppath: (customer && customer.company) || '',
+      birthdate: (customer && customer.birthdate) || '', // Add birthdate field
+      gender: (customer && customer.gender) || '', // Add gender field
     },
     validationSchema: Yup.object({
-      customer: Yup.string().required("Please Enter Customer Name"),
-      email: Yup.string().required("Please Enter Your Email"),
-      phone: Yup.string().required("Please Enter Your Phone"),
-      date: Yup.string().required("Please Enter date"),
-      status: Yup.string().required("Please Enter Your Status"),
-      company: Yup.string().required("Please Enter Company"),
+      customer: Yup.string().required("회원 아이디를 입력하세요"),
+      name: Yup.string().required("회원 이름을 입력하세요"),
+      email: Yup.string().required("이메일 주소를 입력하세요"),
+      password: Yup.string().required("회원 비믈번호를 입력하세요"),
+      confirm_password: Yup.string().required("회원 비밀번호를 재입력해주십시오"),
+      phone: Yup.string().required("연락처를 입력하세요"),
+      // date: Yup.string().required("Please Enter date"),
+      status: Yup.string().required("회원 상태를 입력하세요"),
+      // company: Yup.string().required("회원 회원그룹을 입력하세요"),
+      birthdate: Yup.date().required("생년월일을 입력하세요"), // Add birthdate validation
+      gender: Yup.string().required("성별을 선택하세요"), // Add gender validation
     }),
+
+    
+
     onSubmit: (values) => {
       if (isEdit) {
         const updateCustomer = {
           id: customer ? customer.id : 0,
           customer: values.customer,
+          name: values.name,
+          password: values.password,
+          confirm_password: values.confirm_password,
+          gender: values.gender,
+          signuppath: values.signuppath,
           email: values.email,
           phone: values.phone,
           date: values.date,
           status: values.status,
           company: values.company,
+          age: calculateAge(values.birthdate), // Calculate age
         };
         // update customer
         dispatch(onUpdateCustomer(updateCustomer));
@@ -149,11 +182,17 @@ const MemberList = () => {
         const newCustomer = {
           id: (Math.floor(Math.random() * (30 - 20)) + 20).toString(),
           customer: values["customer"],
+          name: values["name"],
+          password: values["password"],
+          confirm_password: values["confirm_password"],
+          gender: values["gender"],
+          signuppath: values["signuppath"],
           email: values["email"],
           phone: values["phone"],
           date: values["date"],
           status: values["status"],
           company: values["company"],
+          age: calculateAge(values["birthdate"]), // Calculate age
         };
         // save new customer
         dispatch(onAddNewCustomer(newCustomer));
@@ -261,7 +300,6 @@ const MemberList = () => {
     setSelectedCheckBoxDelete(ele);
   };
 
-  
 
 
   // Customers Column
@@ -299,26 +337,8 @@ const MemberList = () => {
       },
       {
         header: "신상",
-        cell: (cellProps: any) => {
-          const customerData = cellProps.row.original;
-      
-          // Ayol yoki erkaklik ikonini aniqlash
-          const genderIcon = customerData.gender === 'male' ? 'ri-male-fill' : 'ri-female-fill';
-        
-          // Yoshni hisoblash
-          const age = new Date().getFullYear() - new Date(customerData.birthDate).getFullYear();
-      
-          return (
-            <table>
-              <tbody>
-                <tr>
-                  <td><i className={`${genderIcon} fs-16 text-primary`} title={customerData.gender || 'nan'}></i></td>
-                  <td>{age || 'nan'}</td>
-                </tr>
-              </tbody>
-            </table>
-          );
-        },
+        accessorKey: "birthday",
+        enableColumnFilter: false,
       },
       {
         header: "연락처",
@@ -430,7 +450,7 @@ const MemberList = () => {
           onCloseClick={() => setDeleteModalMulti(false)}
         />
         <Container fluid>
-          <BreadCrumb title="회원관리" pageTitle="회원목록" />
+          <BreadCrumb title="회원목록" pageTitle="회원관리" />
           <Row>
             <Col lg={12}>
               <Card id="customerList">
@@ -452,7 +472,7 @@ const MemberList = () => {
                           id="create-btn"
                           onClick={() => { setIsEdit(false); toggle(); }}
                         >
-                          <i className="ri-add-line align-bottom me-1"></i> 등록
+                          <i className="ri-add-line align-bottom me-1"></i> 회원 등록
                         </button>{" "}
                         <button type="button" className="btn btn-success" onClick={() => setIsExportCSV(true)}>
                           <i className="ri-file-download-line align-bottom me-1"></i>{" "}
@@ -465,20 +485,7 @@ const MemberList = () => {
 
                 <div className="card-body pt-0">
                
-                      {/* <div className="mb-3">
-  <label htmlFor="pageSize" className="form-label form-select-sm">리스트:</label>
-  <select
-    id="pageSize"
-    className="form-select form-select-sm mb-3" 
-    value={pageSize}
-    onChange={handlePageSizeChange}
-  >
-    <option value="10">10</option>
-    <option value="20">20</option>
-    <option value="50">50</option>
-    <option value="100">100</option>
-  </select>
-</div> */}
+                
           <div className="card-body pt-0">
       {isCustomerSuccess && customers.length ? (
         <TableContainer
@@ -526,13 +533,94 @@ const MemberList = () => {
                             readOnly
                           />
                         </div>
+                        
+                        <div className="mb-3">
+                          <Label
+                            htmlFor="customername-field"
+                            className="form-label"
+                          >
+                           아이디
+                          </Label>
+                          <Input
+                            name="customer"
+                            id="customername-field"
+                            className="form-control"
+                            placeholder="아이디를 입력하세요"
+                            type="text"
+                            validate={{
+                              required: { value: true },
+                            }}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            value={validation.values.customer || ""}
+                            invalid={
+                              validation.touched.customer && validation.errors.customer ? true : false
+                            }
+                          />
+                          {validation.touched.customer && validation.errors.customer ? (
+                            <FormFeedback type="invalid">{validation.errors.customer}</FormFeedback>
+                          ) : null}
+                        </div>
+                     
+<div className="mb-3">
+  <Label htmlFor="password-field" className="form-label">
+    비밀번호
+  </Label>
+  <Input
+    name="password"
+    type="password"
+    id="password-field"
+    className="form-control"
+    placeholder="비밀번호를 입력해주세요"
+    onChange={validation.handleChange}
+    onBlur={validation.handleBlur}
+    value={validation.values.password || ""}
+    invalid={
+      validation.touched.password && validation.errors.password
+        ? true
+        : false
+    }
+  />
+  {validation.touched.password && validation.errors.password ? (
+    <FormFeedback type="invalid">
+      {validation.errors.password}
+    </FormFeedback>
+  ) : null}
+</div>
+<div className="mb-3">
+  <Label htmlFor="confirm-password-field" className="form-label">
+  비밀번호 화근
+  </Label>
+  <Input
+    name="confirm_password"
+    type="password"
+    id="confirm-password-field"
+    className="form-control"
+    placeholder="비밀번호를 입력해주세요"
+    onChange={validation.handleChange}
+    onBlur={validation.handleBlur}
+    value={validation.values.confirm_password || ""}
+    invalid={
+      validation.touched.confirm_password &&
+      validation.errors.confirm_password
+        ? true
+        : false
+    }
+  />
+  {validation.touched.confirm_password &&
+  validation.errors.confirm_password ? (
+    <FormFeedback type="invalid">
+      {validation.errors.confirm_password}
+    </FormFeedback>
+  ) : null}
+</div>
 
                         <div className="mb-3">
                           <Label
                             htmlFor="customername-field"
                             className="form-label"
                           >
-                           회원 이름12
+                           회원 이름
                           </Label>
                           <Input
                             name="customer"
@@ -724,27 +812,26 @@ const MemberList = () => {
                       
 
 <div className="mb-3">
-  <Label htmlFor="age-field" className="form-label">
-    Age
+  <Label htmlFor="birthdate-field" className="form-label">
+   생년월일
   </Label>
   <Input
-    name="age"
-    type="number"
-    id="age-field"
-    placeholder="Enter Age"
+    name="birthdate"
+    type="date"
+    id="birthdate-field"
     onChange={validation.handleChange}
     onBlur={validation.handleBlur}
-    value={validation.values.age || ""}
-    invalid={validation.touched.age && validation.errors.age}
+    value={validation.values.birthdate || ""}
+    invalid={validation.touched.birthdate && validation.errors.birthdate}
   />
-  {validation.touched.age && validation.errors.age ? (
-    <FormFeedback type="invalid">{validation.errors.age}</FormFeedback>
+  {validation.touched.birthdate && validation.errors.birthdate ? (
+    <FormFeedback type="invalid">{validation.errors.birthdate}</FormFeedback>
   ) : null}
 </div>
                       </ModalBody>
                       <ModalFooter>
                         <div className="hstack gap-2 justify-content-end">
-                          <button type="button" className="btn btn-light" onClick={() => { setModal(false); }}> Close </button>
+                          <button type="button" className="btn btn-light" onClick={() => { setModal(false); }}> 목록 </button>
 
                           <button type="submit" className="btn btn-success"> {!!isEdit ? "Update" : "Add Customer"} </button>
                         </div>

@@ -463,7 +463,7 @@ const CheckupProgram = () => {
         />
 
         <Container fluid>
-          <BreadCrumb title="Companies" pageTitle="CRM" />
+          <BreadCrumb title="검진프로그램" pageTitle="병원목록" />
 
           <Row>
             <Col lg={12}>
@@ -472,7 +472,7 @@ const CheckupProgram = () => {
                   <div className="d-flex align-items-center flex-wrap gap-2">
                     <div className="flex-grow-1">
                       <button className="btn btn-primary add-btn" onClick={() => { setIsEdit(false); toggle(); }}>
-                        <i className="ri-add-fill me-1 align-bottom"></i> Add Company
+                        <i className="ri-add-fill me-1 align-bottom"></i> 검진프로그램 등록
                       </button>
                     </div>
                     <div className="flex-shrink-0">
@@ -484,7 +484,10 @@ const CheckupProgram = () => {
                           <i className="ri-filter-2-line me-1 align-bottom"></i>{" "}
                           Filters
                         </button>
-                        <button className="btn btn-soft-success" onClick={() => setIsExportCSV(true)}>Export</button>
+                        <button type="button" className="btn btn-success" onClick={() => setIsExportCSV(true)}>
+                          <i className="ri-file-download-line align-bottom me-1"></i>{" "}
+                          엑셀다운로드
+                        </button>
                         <UncontrolledDropdown>
                           <DropdownToggle
                             href="#"
