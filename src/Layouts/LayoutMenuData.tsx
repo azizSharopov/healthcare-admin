@@ -256,12 +256,12 @@ const Navdata = () => {
                     parentId: "apps",
                     stateVariables: isCrypto,
                     childItems: [
-                        { id: 1, label: "제휴사목록", link: "/apps-ecommerce-customers", parentId: "apps" },
-                        // { id: 1, label: "제휴사목록", link: "/apps-crypto-ico" },
+                        { id: 1, label: "제휴사목록", link: "/apps-affiliates-list", parentId: "apps" },
+                       
                     ]
                 },
                 {
-                    id: "invoices",
+                    id: "apps",
                     label: "예약관리",
                     link: "/#",
                     isChildItem: true,
@@ -272,8 +272,7 @@ const Navdata = () => {
                     parentId: "apps",
                     stateVariables: isInvoices,
                     childItems: [
-                        { id: 1, label: "예약목록", link: "/apps-ecommerce-customers", parentId: "apps" },
-                        // { id: 1, label: "예약목록", link: "/apps-invoices-create" },
+                        { id: 1, label: "예약목록", link: "/apps-reservation-list", parentId: "apps" },
                         
                     ]
                 },

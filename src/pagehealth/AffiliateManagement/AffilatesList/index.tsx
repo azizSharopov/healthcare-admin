@@ -25,30 +25,30 @@ import { useFormik } from "formik";
 
 
 //Import Breadcrumb
-import BreadCrumb from "../../Components/Common/BreadCrumb";
-import DeleteModal from "../../Components/Common/DeleteModal";
+import BreadCrumb from "../../../Components/Common/BreadCrumb";
+import DeleteModal from "../../../Components/Common/DeleteModal";
 
 import {
   getCustomers as onGetCustomers,
   addNewCustomer as onAddNewCustomer,
   updateCustomer as onUpdateCustomer,
   deleteCustomer as onDeleteCustomer,
-} from "../../slices/thunks";
+} from "../../../slices/thunks";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import TableContainer from "../../Components/Common/TableContainer";
+import TableContainer from "../../../Components/Common/TableContainer";
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loader from "../../Components/Common/Loader";
+import Loader from "../../../Components/Common/Loader";
 
 // Export Modal
-import ExportCSVModal from "../../Components/Common/ExportCSVModal";
+import ExportCSVModal from "../../../Components/Common/ExportCSVModal";
 import { createSelector } from "reselect";
 
 
-const AffiliatesList = () => {
+const AffilatesList = () => {
   const dispatch: any = useDispatch();
 
   const selectLayoutState = (state: any) => state.Ecommerce;
@@ -464,7 +464,7 @@ const AffiliatesList = () => {
                         ><i className="ri-delete-bin-2-line"></i></button>}
                         <button
                           type="button"
-                          className="btn btn-success add-btn me-1"
+                          className="btn btn-secondary add-btn me-1"
                           id="create-btn"
                           onClick={() => { setIsEdit(false); toggle(); }}
                         >
@@ -732,4 +732,4 @@ const AffiliatesList = () => {
   );
 };
 
-export default AffiliatesList;
+export default AffilatesList;

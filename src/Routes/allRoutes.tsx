@@ -207,15 +207,18 @@ import PrivacyPolicy from "pages/Pages/PrivacyPolicy";
 import Kanbanboard from "pages/Tasks/KanbanBoard";
 
 // Membership Management
-import MemberList from "pages/MembershipManagement/MemberList";
-import MemberWithdrawal from "../pages/MembershipManagement/MemberWithdrawal/index";
+import MemberList from "pagehealth/MembershipManagement/MemberList";
+import MemberWithdrawal from "../pagehealth/MembershipManagement/MemberWithdrawal/index";
 
 // Hospital Management
-import HospitalList from "pages/HospitalManagement/HospitalList";
-import CheckupProgram from "pages/HospitalManagement/CheckupProgram";
+import HospitalList from "pagehealth/HospitalManagement/HospitalList";
+import CheckupProgram from "pagehealth/HospitalManagement/CheckupProgram";
 
 // Affiliates management
-import AffiliatesList from "pages/AffiliateManagement";
+import AffiliatesList from "pagehealth/AffiliateManagement/AffilatesList";
+
+// Reservation management
+import ReservationList from "pagehealth/ReservationManagement/ReservationList";
 
 
 
@@ -252,6 +255,9 @@ const authProtectedRoutes = [
 
   // Affiliate management
   { path: "/apps-affiliates-list", component: <AffiliatesList /> },
+
+  // Reservation management
+  { path: "/apps-reservation-list", component: <ReservationList/>},
 
   //Chat
   { path: "/apps-chat", component: <Chat /> },

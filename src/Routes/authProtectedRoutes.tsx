@@ -117,11 +117,12 @@ import UiLink from "../pages/BaseUi/UiLinks/UiLinks";
 import PrivacyPolicy from "pages/Pages/PrivacyPolicy";
 import Kanbanboard from "pages/Tasks/KanbanBoard";
 
-import MemberList from "pages/MembershipManagement/MemberList";
-import MemberWithdrawal from "pages/MembershipManagement/MemberWithdrawal";
-import HospitalList from "pages/HospitalManagement/HospitalList"
-import CheckupProgram from "pages/HospitalManagement/CheckupProgram";
-import AffiliatesList from "pages/AffiliateManagement";
+import MemberList from "pagehealth/MembershipManagement/MemberList";
+import MemberWithdrawal from "pagehealth/MembershipManagement/MemberWithdrawal";
+import HospitalList from "pagehealth/HospitalManagement/HospitalList"
+import CheckupProgram from "pagehealth/HospitalManagement/CheckupProgram";
+import AffiliatesList from "pagehealth/AffiliateManagement/AffilatesList";
+import ReservationList from "pagehealth/ReservationManagement/ReservationList";
 
 
 const authProtectedRoutes = [
@@ -159,6 +160,9 @@ const authProtectedRoutes = [
   // Affiliate management
   { path: "/apps-affiliates-list", component: <AffiliatesList /> },
 
+  
+  // Reservation management
+  { path: "/apps-reservation-list", component: <ReservationList/>},
 
   // eslint-disable-next-line react/jsx-pascal-case
   
