@@ -141,9 +141,7 @@ const TwoColumnLayout = (props : any) => {
                     <Container fluid>
                         <div id="two-column-menu">
                             <SimpleBar className="twocolumn-iconview">
-                                <Link to="#" className="logo">
-                                    <img src={logodigital} alt="" height="22" />
-                                </Link>
+                                
                                 {(navData || []).map((item : any, key : any) => (
                                     <React.Fragment key={key}>
                                         {item.icon && (

@@ -4,8 +4,6 @@ import { Dropdown, DropdownMenu, DropdownToggle, Form } from 'reactstrap';
 
 //import images
 
-import logoDark from "../assets/images/logo-dark.png";
-import logoLight from "../assets/images/logo-light.png";
 import digital from "../assets/images/digital.png";
 import logodigital from "../assets/images/logodigital.png";
 
@@ -85,7 +83,7 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }: any) => {
                         <div className="d-flex">
 
                             <div className="navbar-brand-box horizontal-logo">
-                                <Link to="/" className="logo logo-dark">
+                                <Link to="/apps-member-list" className="logo logo-dark">
                                     <span className="logo-sm">
                                         <img src={logodigital} alt="" height="22" />
                                         
@@ -95,7 +93,7 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }: any) => {
                                     </span>
                                 </Link>
 
-                                <Link to="/" className="logo-light">
+                                <Link to="/apps-member-list" className="logo-light">
                                     <span className="logo-sm">
                                         <img src={logodigital} alt="" height="22" />
                                         
@@ -119,7 +117,7 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }: any) => {
                             </button>
 
 
-                            <SearchOption />
+                            {/* <SearchOption /> */}
                         </div>
 
                         <div className="d-flex align-items-center">
@@ -152,16 +150,16 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }: any) => {
                             {/* <MyCartDropdown /> */}
 
                             {/* FullScreenDropdown */}
-                            <FullScreenDropdown />
+                            {/* <FullScreenDropdown /> */}
 
                             {/* Dark/Light Mode set */}
-                            <LightDark
+                            {/* <LightDark
                                 layoutMode={layoutModeType}
                                 onChangeLayoutMode={onChangeLayoutMode}
-                            />
+                            /> */}
 
                             {/* NotificationDropdown */}
-                            <NotificationDropdown />
+                            {/* <NotificationDropdown /> */}
 
                             {/* ProfileDropdown */}
                             <ProfileDropdown />
