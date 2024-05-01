@@ -43,15 +43,15 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
       <ModalBody className="py-3 px-5">
         <div className="text-center">
           <i className="ri-delete-bin-line display-5 text-danger"></i>
-          <h4>확실합니까?</h4>
-          <p className="text-muted">
+          <h4>암호를 입력해 주세요</h4>
+          {/* <p className="text-muted">
             정말로 이 기록을 삭제하시겠습니까? {recordId ? `#${recordId}` : ""}?
-          </p>
+          </p> */}
           <Input
             type="password"
             value={password}
             onChange={handlePasswordChange}
-            placeholder="비밀번호를 입력해 주십시오"
+            placeholder="비밀번호를 입력하여 주십시요."
             className="mt-4"
           />
           <div className="d-flex gap-2 justify-content-center mt-4">

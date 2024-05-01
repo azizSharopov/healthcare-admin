@@ -22,7 +22,7 @@ const Error500 = () => {
                                 <div>
                                     <h3>Internal Server Error!</h3>
                                     <p className="text-muted w-75 mx-auto">Server Error 500. We're not exactly sure what happened, but our servers say something is wrong.</p>
-                                    <Link to="/dashboard" className="btn btn-success"><i className="mdi mdi-home me-1"></i>Back to home</Link>
+                                    <Link to='/apps-member-list' className="btn btn-success"><i className="mdi mdi-home me-1"></i>Back to home</Link>
                                 </div>
                             </Col>
                         </Row>

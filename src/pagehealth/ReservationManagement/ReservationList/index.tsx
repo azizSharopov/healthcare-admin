@@ -63,7 +63,7 @@ const calculateAge = (birthdate: string) => {
   return age;
 };
 
-const MemberList = () => {
+const ReservationList = () => {
   const dispatch: any = useDispatch();
 
   const selectLayoutState = (state: any) => state.Ecommerce;
@@ -849,5 +849,5 @@ const MemberList = () => {
   );
 };
 
-export default MemberList;
+export default ReservationList;
 

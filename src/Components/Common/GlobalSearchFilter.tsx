@@ -53,10 +53,12 @@ const CustomersGlobalFilter = () => {
         setSortingMethod(event.target.value);
         // You can perform any actions here based on the selected sorting method
     };
+
     const sortingMethodOptions = [
         { label: "아이디", value: "아이디" },
         { label: "이름", value: "이름" },
     ];
+
     const customerstatus = [
         {
             options: [
@@ -78,6 +80,7 @@ const CustomersGlobalFilter = () => {
             ],
         },
     ];
+    
     const handleSearch = () => {
         console.log("Search button clicked");
       };
@@ -85,13 +88,13 @@ const CustomersGlobalFilter = () => {
       const toggleModal = () => {
         setIsOpen(!isOpen); // Yangi oyna ochish yoki yopish
       };
-
-      const handleDateChange = (dates: Date[]) => {
+ const handleDateChange = (dates: Date[]) => {
         if (Array.isArray(dates) && dates.length === 2) {
             setDateRange(dates);
             searchCustomers(dates);
         }
     };
+     
 
     const searchCustomers = async (dates: Date[]) => {
         const [start, end] = dates;
@@ -105,56 +108,68 @@ const CustomersGlobalFilter = () => {
     const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setPageSize(event.target.value);
     };
- 
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+  
+    const handleDataSearch = () => {
+      console.log("Qidiruv boshlandi: ", startDate, endDate);
+      // Bu yerdan boshlab siz kerakli API so'rovini yuborishingiz mumkin
+    };
+  
 
     return (
         <React.Fragment>
-            <Col xl={7}>
-                <Row className="g-3">
-                {/* <Col sm={3}>
-                        <div>
-                            <button
-                                type="button"
-                                className="btn btn-success w-100"
-                            >
-                                {" "}
-                                <i className="ri-equalizer-fill me-2 align-bottom"></i>
-                               검색
-                            </button>
-                        </div>
-                    </Col> */}
-
-                    {/* <Col sm={3}>
-                        <div>
-                            <button
-                                type="button"
-                                className="btn btn-info w-100"
-                            >
-                                {" "}
-                                <i className="ri-equalizer-fill me-2 align-bottom"></i>
-                                처음
-                            </button>
-                        </div>
-                    </Col> */}
-                    {/* <Col sm={3}>
-                        <div>
-                            <button
-                                type="button"
-                                className="btn btn-secondary w-100"
-                                onClick={handleSearch}
-                               
-
-                            >
-                                {" "}
-                                <i className="ri-equalizer-fill me-2 align-bottom"></i>
-                                상세검색
-                            </button>
-                        </div>
-                    </Col> */}
+            <Col xl={12}>
+                <Row >
                  
-                    <Col sm={4}>
-                        <div className="form-group">
-                            <label htmlFor="date-range">가입기간:</label>
+                {/* <Col sm={2} className=" d-flex flex-row p-2">
+           
+                <label htmlFor="sortingMethod"  className="form-label form-select-label p-1">정렬방식:</label>
+                <select
+                    id="sortingMethod"
+                    className="form-select form-select mb-5"
+                    style={{ width: '100px' }} 
+                    value={sortingMethod}
+                    onChange={handleSortingMethodChange}
+                >
+                    <option value="">선택</option>
+                    {sortingMethodOptions.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                </select>
+          
+                    </Col> */}
+                    
+
+                    <Col sm={4} className='d-flex flex-row p-2'>
+                    <label htmlFor="sortingMethod" className="form-label form-select-label p-1">가입형태:</label>
+                    
+                        <div className='p-1'>
+                            <Select
+                                value={customerStatus}
+                                onChange={handlecustomerStatus}
+                                options={customerstatus}
+                                name="choices-single-default"
+                                id="idStatus"
+                                placeholder="전체"
+                               
+                            ></Select>
+                        </div>
+                        <div className='p-1'>
+                            <Select
+                                value={customerSignupType}
+                                onChange={handlecustomerSignupType}
+                                options={customersignuptype}
+                                name="choices-single-default"
+                                id="idStatus"
+                                placeholder="전체"
+                            ></Select>
+                        </div>
+                       
+                    </Col>
+                    <Col sm={5}>
+                        {/* <div className=" d-flex flex-row p-2">
+                            <label style={{ width: '70px', }} htmlFor="date-range">가입기간:</label>
                             <Flatpickr
                                 className="form-control"
                                 value={dateRange}
@@ -165,57 +180,33 @@ const CustomersGlobalFilter = () => {
                                 }}
                             />
                         </div>
-                 
+                  */}
+                   <div  className="d-flex align-items-center p-2">
+                   <label onClick={handleDataSearch}  style={{ width: '160px' }}  className="form-label form-select-label p-1">가입기간:</label>
+      <input
+        type="date"
+        value={startDate}
+        onChange={(e) => setStartDate(e.target.value)}
+        className="form-control"
+      />
+      <span className="mx-2">-</span>
+      <input
+        type="date"
+        value={endDate}
+        onChange={(e) => setEndDate(e.target.value)}
+        className="form-control"
+      />
+      
+    </div>
                     </Col>
-                    
-
-                    <Col sm={3}>
-                    <label htmlFor="sortingMethod" className="form-label form-select-label">정렬방식:</label>
-                        <div >
-                            <Select
-                                value={customerStatus}
-                                onChange={handlecustomerStatus}
-                                options={customerstatus}
-                                name="choices-single-default"
-                                id="idStatus"
-                               
-                            ></Select>
-                        </div>
-                        <div >
-                            <Select
-                                value={customerSignupType}
-                                onChange={handlecustomerSignupType}
-                                options={customersignuptype}
-                                name="choices-single-default"
-                                id="idStatus"
-                             
-                            ></Select>
-                        </div>
-                    </Col>
-                    <Col sm={3}>
-                         {/* Sorting method select */}
-           
-                <label htmlFor="sortingMethod" className="form-label form-select-label">정렬방식:</label>
-                <select
-                    id="sortingMethod"
-                    className="form-select form-select mb-3"
-                    value={sortingMethod}
-                    onChange={handleSortingMethodChange}
-                >
-                    <option value="">선택</option>
-                    {sortingMethodOptions.map(option => (
-                        <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                </select>
-          
-                    </Col>
-                    <Col sm={2}>
+                    <Col sm={2} className=" d-flex flex-row p-2">
                    
-                      <label htmlFor="pageSize" className="form-label form-select-label">리스트:</label>
+                      <label htmlFor="pageSize" className="form-label form-select-label p-1">리스트:</label>
                       <select
                         id="pageSize"
                         // className="form-select form-select-sm mb-3"
-                        className="form-select form-select mb-3"
+                        className="form-select form-select mb-5 p-2"
+                        style={{ width: '80px' }} 
                         value={pageSize}
                         onChange={handlePageSizeChange}
                      >
@@ -226,7 +217,24 @@ const CustomersGlobalFilter = () => {
                       </select>
                    
                     </Col>
-                   
+                    <Col sm={3} className=" d-flex flex-row p-2">
+                         {/* Sorting method select */}
+           
+                <label htmlFor="sortingMethod"   className="form-label form-select-label p-1">정렬방식:</label>
+                <select
+                    id="sortingMethod"
+                    className="form-select form-select mb-5"
+                    style={{ width: '110px' }} 
+                    value={sortingMethod}
+                    onChange={handleSortingMethodChange}
+                >
+                    <option value="">등록일순</option>
+                    {sortingMethodOptions.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                </select>
+          
+                    </Col>
                 </Row>
                 
             </Col>

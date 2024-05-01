@@ -156,7 +156,7 @@ const TableContainer = ({
           <form>
             <Row>
               <Col sm={5}>
-                <div className="search-box me-2 mb-4 d-inline-block col-12">
+                <div className="search-box me-2 mb-2 d-inline-block col-12">
                   <DebouncedInput
                     value={globalFilter ?? ''}
                     onChange={value => setGlobalFilter(String(value))}

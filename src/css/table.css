@@ -1,0 +1,11 @@
+/* App.css yoki boshqa global CSS faylingizda */
+.custom-table th {
+    background-color: #67707a;  /* Ko'k rang */
+    color: rgb(16, 14, 14);
+    width: 200px; /* yoki kerakli o'lcham */
+  }
+  
+  .custom-table td {
+    background-color: #f8f9fa;  /* Oq-ish rang */
+  }
+  

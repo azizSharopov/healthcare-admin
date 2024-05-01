@@ -151,34 +151,7 @@ const VerticalLayout = (props : any) => {
     return (
         <React.Fragment>
             {/* menu Items */}
-            {(navData || []).map((item : any, key : any) => {
-                return (
-                    <React.Fragment key={key}>
-                        {/* Main Header */}
-                        {item['isHeader'] ?
-                            <li className="menu-title"><span data-key="t-menu">{props.t(item.label)} </span></li>
-                            : (
-                                (item.subItems ? (
-                                    <li className="nav-item">
-                                        <Link
-                                            onClick={item.click}
-                                            className="nav-link menu-link"
-                                            to={item.link ? item.link : "/#"}
-                                            data-bs-toggle="collapse"
-                                        >
-                                            <i className={item.icon}></i>
-                                            <span data-key="t-apps">{props.t(item.label)}</span>
-                                            {item.badgeName ?
-                                                <span className={"badge badge-pill bg-" + item.badgeColor} data-key="t-new">{item.badgeName}</span>
-                                                : null}
-                                        </Link>
-                                        <Collapse
-                                            className="menu-dropdown"
-                                            isOpen={item.stateVariables}
-                                            id="sidebarApps">
-                                            <ul className="nav nav-sm flex-column test">
-                                                {/* subItms  */}
-                                                {item.subItems && ((item.subItems || []).map((subItem : any, key : any) => (
+            {navData[0].subItems && ((navData[0].subItems || []).map((subItem : any, key : any) => (
                                                     <React.Fragment key={key}>
                                                         {!subItem.isChildItem ? (
                                                             <li className="nav-item">
@@ -243,27 +216,6 @@ const VerticalLayout = (props : any) => {
                                                     </React.Fragment>
                                                 ))
                                                 )}
-                                            </ul>
-
-                                        </Collapse>
-                                    </li>
-                                ) : (
-                                    <li className="nav-item">
-                                        <Link
-                                            className="nav-link menu-link"
-                                            to={item.link ? item.link : "/#"}>
-                                            <i className={item.icon}></i> <span>{props.t(item.label)}</span>
-                                            {item.badgeName ?
-                                                <span className={"badge badge-pill bg-" + item.badgeColor} data-key="t-new">{item.badgeName}</span>
-                                                : null}
-                                        </Link>
-                                    </li>
-                                ))
-                            )
-                        }
-                    </React.Fragment>
-                );
-            })}
         </React.Fragment>
     );
 };

@@ -18,8 +18,9 @@ import { Link } from "react-router-dom";
 import Flatpickr from "react-flatpickr";
 import { isEmpty } from "lodash";
 import moment from "moment";
-
 import "flatpickr/dist/themes/material_green.css"; // or any theme you prefer
+
+import { useNavigate } from 'react-router-dom';
 
 // Formik
 import * as Yup from "yup";
@@ -66,6 +67,7 @@ const calculateAge = (birthdate: string) => {
 const MemberList = () => {
   const dispatch: any = useDispatch();
 
+  let navigate = useNavigate();
   const selectLayoutState = (state: any) => state.Ecommerce;
   const ecomCustomerProperties = createSelector(
     selectLayoutState,
@@ -86,7 +88,7 @@ const MemberList = () => {
 
   
   const [pageSize, setPageSize] = useState('10'); // Default page size
-    const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setPageSize(event.target.value);
     };
  
@@ -210,6 +212,10 @@ const MemberList = () => {
     }
   };
 
+  // const handleEditCustomerClick = (customer: any) => {
+  //   navigate('/edit-customer', { state: { customer } });
+  // };
+  
   // Update Data
   const handleCustomerClick = useCallback((arg: any) => {
     const customer = arg;
@@ -387,20 +393,22 @@ const MemberList = () => {
           return (
             <ul className="list-inline hstack gap-2 mb-0">
               <li className="list-inline-item edit" title="Edit">
-                <Link
+                {/* <Link
                   to="#"
                   className="text-primary d-inline-block edit-item-btn"
-                  onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
+                  onClick={() => handleEditCustomerClick(cellProps.row.original)}
                 >
-
                   <i className="ri-pencil-fill fs-16"></i>
-                </Link>
+                </Link> */}
+                <Link to="/edit-customer" className="text-primary d-inline-block edit-item-btn">
+  <i className="ri-pencil-fill fs-16"></i>
+</Link>
               </li>
-             
             </ul>
           );
         },
       },
+      
       {
         header: "삭제",
         cell: (cellProps: any) => {
@@ -466,14 +474,25 @@ const MemberList = () => {
                         {isMultiDeleteButton && <button className="btn btn-soft-danger me-1"
                           onClick={() => setDeleteModalMulti(true)}
                         ><i className="ri-delete-bin-2-line"></i></button>}
-                        <button
+                        {/* <button
                           type="button"
                           className="btn btn-secondary add-btn me-1"
                           id="create-btn"
                           onClick={() => { setIsEdit(false); toggle(); }}
                         >
                           <i className="ri-add-line align-bottom me-1"></i> 회원 등록
-                        </button>{" "}
+                        </button>{" "} */}
+                        <button
+      type="button"
+      className="btn btn-secondary add-btn me-1"
+      id="create-btn"
+      onClick={() => {
+        setIsEdit(false);
+        navigate("/add-customer"); // Bu yerda yangi sahifaga yo'naltirish manzilini ko'rsating
+      }}
+    >
+      <i className="ri-add-line align-bottom me-1"></i> 회원 등록
+    </button>
                         <button type="button" className="btn btn-success" onClick={() => setIsExportCSV(true)}>
                           <i className="ri-file-download-line align-bottom me-1"></i>{" "}
                           엑셀다운로드
@@ -517,7 +536,7 @@ const MemberList = () => {
                       <ModalBody>
                         <input type="hidden" id="id-field" />
 
-                        {/* <div
+                        <div
                           className="mb-3"
                           id="modal-id"
                           style={{ display: "none" }}
@@ -532,7 +551,7 @@ const MemberList = () => {
                             placeholder="ID"
                             readOnly
                           />
-                        </div> */}
+                        </div>
                         
                         <div className="mb-3">
                           <Label

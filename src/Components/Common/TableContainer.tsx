@@ -68,6 +68,7 @@ const DebouncedInput = ({
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>) => {
   const [value, setValue] = useState(initialValue);
 
+
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
@@ -85,6 +86,17 @@ const DebouncedInput = ({
   );
 };
 
+
+// function SearchComponent() {
+//   const [globalFilter, setGlobalFilter] = useState('');
+//   const [isDetailedSearchActive, setIsDetailedSearchActive] = useState(false);
+
+//   const handleSearchClick = () => {
+//     setIsDetailedSearchActive(true);  // Batafsil qidiruvni faollashtirish
+//     // Batafsil qidiruv logikasini shu yerda ishga tushirishingiz mumkin
+//     console.log("Batafsil qidiruv bajarilmoqda:", globalFilter);
+//     // Agar APIga so'rov yuborish kerak bo'lsa, bu yerda amalga oshiriladi
+//   };
 interface TableContainerProps {
   columns?: any;
   data?: any;
@@ -189,9 +201,9 @@ const TableContainer = ({
 
   return (
     <Fragment>
-      {isGlobalFilter && <Row className="mb-3">
+      {isGlobalFilter && <Row className="mb-3 ">
         <CardBody className="border border-dashed border-end-0 border-start-0">
-          <form>
+          <form >
             <Row>
               <Col sm={5}>
                 <div className={(isProductsFilter || isContactsFilter || isCompaniesFilter || isNFTRankingFilter) ? "search-box me-2 mb-2 d-inline-block" : "search-box me-2 mb-2 d-inline-block col-12"}>
@@ -202,8 +214,31 @@ const TableContainer = ({
                   />
                   <i className="bx bx-search-alt search-icon"></i>
                 </div>
+                
               </Col>
-              {isProductsFilter && (
+              <Col sm={2}>
+                        <div>
+                            <button
+                                type="button"
+                                className="btn btn-success w-100"
+                            >
+                               
+                               검색
+                            </button>
+                        </div>
+                    </Col>
+                    <Col sm={2}>
+                        <div>
+                            <button
+                                type="button"
+                                className="btn btn-secondary w-100"
+                             
+                            >  
+                                상세검색
+                            </button>
+                        </div>
+                    </Col>
+              {/* {isProductsFilter && (
                 <ProductsGlobalFilter />
               )}
               { isCustomerFilter && (
@@ -236,7 +271,26 @@ const TableContainer = ({
               )}
               {isTaskListFilter && (
                 <TaskListGlobalFilter />
-              )}
+              )} */}
+            </Row>
+            <Row>
+            { isCustomerFilter && (
+
+            < CustomersGlobalFilter/>
+            )}
+{/* {isOrderFilter && (
+  <OrderGlobalFilter />
+)}
+{isContactsFilter && (
+  <ContactsGlobalFilter />
+)}
+{isCompaniesFilter && (
+  <CompaniesGlobalFilter />
+)}
+{isLeadsFilter && (
+  <LeadsGlobalFilter />
+)} */}
+
             </Row>
           </form>
         </CardBody>

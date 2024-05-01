@@ -102,6 +102,8 @@ import AffiliatesList from "pagehealth/AffiliateManagement/AffilatesList";
 
 // Reservation management
 import ReservationList from "pagehealth/ReservationManagement/ReservationList";
+import AddCustomerPage from "Components/AddCustomer/AddCustomer";
+import EditCustomer from "Components/EditCustomer/EditCustomer";
 
 const authProtectedRoutes = [
 
@@ -113,6 +115,9 @@ const authProtectedRoutes = [
   { path: "/apps-ecommerce-sellers", component: <EcommerceSellers /> },
   { path: "/apps-ecommerce-seller-details", component: <EcommerceSellerDetail /> },
   { path: "/apps-todo", component: <ToDoList /> },
+
+  { path: "/add-customer",  component: <AddCustomerPage />},
+  { path: "/edit-customer",  component: <EditCustomer />},
 
   // Membership management
   { path: "/apps-member-list", component: <MemberList /> },
@@ -178,9 +183,9 @@ const authProtectedRoutes = [
   {
     path: "/",
     exact: true,
-    component: <Navigate to="/dashboard" />,
+    component: <Navigate to="/apps-member-list" />,
   },
-  { path: "*", component: <Navigate to="/dashboard" /> },
+  { path: "*", component: <Navigate to="/apps-member-list" /> },
 ];
 
 const publicRoutes = [

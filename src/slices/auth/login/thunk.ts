@@ -41,13 +41,13 @@ export const loginUser = (user : any, history : any) => async (dispatch : any) =
         data = finallogin.data;
         if (finallogin.status === "success") {
           dispatch(loginSuccess(data));
-          history('/dashboard')
+          history('/apps-member-list')
         } else {
           dispatch(apiError(finallogin));
         }
       } else {
         dispatch(loginSuccess(data));
-        history('/dashboard')
+        history('/apps-member-list')
       }
     }
   } catch (error : any) {
@@ -87,7 +87,7 @@ export const socialLogin = (type : any, history : any) => async (dispatch : any)
     if (socialdata) {
       sessionStorage.setItem("authUser", JSON.stringify(response));
       dispatch(loginSuccess(response));
-      history('/dashboard')
+      history('/apps-member-list')
     }
 
   } catch (error : any) {

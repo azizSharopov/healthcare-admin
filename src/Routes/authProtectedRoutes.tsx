@@ -4,16 +4,13 @@ import { Navigate } from "react-router-dom";
 import ProjectList from "../pagehealth/Preferences/ExaminationItems/ProjectList";
 import ProjectOverview from "../pagehealth/Preferences/TermsConditions/ProjectOverview";
 import CreateProject from "../pagehealth/CustomerService/FAQ/CreateProject";
-
 import CrmLeads from "../pagehealth/PaymendManagement/PaymentList/CrmLeads/index";
-
 import TicketsDetails from '../pagehealth/PaymendManagement/PaymentRefund/TicketsDetails';
 import EcommerceProducts from "../pagehealth/CustomerService/Announcement/EcommerceProducts/index";
 import EcommerceAddProduct from "../pagehealth/CustomerService/Announcement/EcommerceProducts/EcommerceAddProduct";
 import EcommerceOrders from "../pagehealth/CustomerService/Partnership/EcommerceOrders/index";
 import EcommerceOrderDetail from "../pagehealth/CustomerService/Partnership/EcommerceOrders/EcommerceOrderDetail";
 import EcommerceCustomers from "../pagehealth/AccessStatistics/AnnualAccess/EcommerceCustomers/index";
-
 import EcommerceSellers from "../pagehealth/PopupManagement/EcommerceSellers/index";
 import EcommerceSellerDetail from "../pagehealth/PopupManagement/EcommerceSellers/EcommerceSellerDetail";
 
@@ -43,19 +40,17 @@ import UiHighlight from "../pages/AdvanceUi/UiHighlight/UiHighlight";
 
 
 import ApiKey from '../pages/APIKey/index';
-
 import UserProfile from "../pages/Authentication/user-profile";
-
 import ToDoList from "../pages/ToDo";
 import UiLink from "../pages/BaseUi/UiLinks/UiLinks";
-
-
 import MemberList from "pagehealth/MembershipManagement/MemberList";
 import MemberWithdrawal from "pagehealth/MembershipManagement/MemberWithdrawal";
 import HospitalList from "pagehealth/HospitalManagement/HospitalList"
 import CheckupProgram from "pagehealth/HospitalManagement/CheckupProgram";
 import AffiliatesList from "pagehealth/AffiliateManagement/AffilatesList";
 import ReservationList from "pagehealth/ReservationManagement/ReservationList";
+import AddCustomerPage from "Components/AddCustomer/AddCustomer";
+import EditCustomer from "Components/EditCustomer/EditCustomer";
 
 
 const authProtectedRoutes = [
@@ -65,11 +60,11 @@ const authProtectedRoutes = [
   { path: "/apps-ecommerce-orders", component: <EcommerceOrders /> },
   { path: "/apps-ecommerce-order-details", component: <EcommerceOrderDetail /> },
   { path: "/apps-ecommerce-customers", component: <EcommerceCustomers /> },
-
   { path: "/apps-ecommerce-sellers", component: <EcommerceSellers /> },
   { path: "/apps-ecommerce-seller-details", component: <EcommerceSellerDetail /> },
-
   { path: "/apps-todo", component: <ToDoList /> },
+  { path: "/add-customer",  component: <AddCustomerPage />},
+  { path: "/edit-customer",  component: <EditCustomer />},
 
 
   // Member Management
@@ -83,7 +78,6 @@ const authProtectedRoutes = [
   // Affiliate management
   { path: "/apps-affiliates-list", component: <AffiliatesList /> },
 
-  
   // Reservation management
   { path: "/apps-reservation-list", component: <ReservationList/>},
 
@@ -97,11 +91,7 @@ const authProtectedRoutes = [
   //Supports Tickets
   { path: "/apps-crm-leads", component: <CrmLeads /> },
   { path: "/apps-tickets-details", component: <TicketsDetails /> },
-
-
   { path: "/apps-nft-ranking", component: <Ranking /> },
-
-
 
   // Base Ui
   { path: "/ui-alerts", component: <UiAlerts /> },
@@ -142,7 +132,7 @@ const authProtectedRoutes = [
   {
     path: "/",
     exact: true,
-    component: <Navigate to="/dashboard" />,
+    component: <Navigate to="'/apps-member-list'" />,
   },
-  { path: "*", component: <Navigate to="/dashboard" /> },
+  { path: "*", component: <Navigate to="'/apps-member-list'" /> },
 ];

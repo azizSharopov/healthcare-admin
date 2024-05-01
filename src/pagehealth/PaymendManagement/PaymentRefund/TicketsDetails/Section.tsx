@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardBody, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown } from 'reactstrap';
 import img from "../../../../assets/images/companies/img-4.png";
 
-const Section = () => {
+const Section = () => { 
     return (
         <React.Fragment>
             <Col lg={12}>
