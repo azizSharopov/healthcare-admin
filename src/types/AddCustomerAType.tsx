@@ -14,4 +14,13 @@ export interface Customer {
     status: string;
   }
   
-  
+  export interface Item {
+    header1: string;
+    info1: string;
+    header2: string;
+    info2: string;
+    id: number;
+    type?: 'input' | 'select' | 'checkbox' | 'info';
+    value?: string;
+    checked?: boolean;
+}

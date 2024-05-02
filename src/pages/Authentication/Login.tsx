@@ -197,47 +197,7 @@ const Login = (props: any) => {
                                                     </Button>
                                                 </div>
 
-                                                <div className="mt-4 text-center">
-                                                    <div className="signin-other-title">
-                                                        <h5 className="fs-13 mb-4 title">Sign in with</h5>
-                                                    </div>
-                                                    <div className="d-flex justify-content-evenly">
-                                                      
-                                                        <Link
-                                                            to="#"
-                                                            className="btn btn-danger btn-icon me-1"
-                                                            onClick={e => {
-                                                                e.preventDefault();
-                                                                socialResponse("google");
-                                                            }}
-                                                        >
-                                                           <img src={google} alt="" height="40" />
-                                                        </Link>
-                                                        <Link
-                                                            to="#"
-                                                            className="btn btn-success btn-icon me-1"
-                                                            onClick={e => {
-                                                                e.preventDefault();
-                                                                socialResponse("naver");
-                                                            }}
-                                                        >
-                                                            <img src={naver} alt="" height="40" />
-                                                        </Link>
-                                                        <Link
-                                                            to="#"
-                                                            className="btn btn-warning btn-icon me-1"
-                                                            onClick={e => {
-                                                                e.preventDefault();
-                                                                socialResponse("kakaotalk");
-                                                            }}
-                                                        >
-                                                            {/* <i className="ri-kakao-talk-fill fs-16" /> */}
-                                                            <img src={kakao} alt="" height="40" />
-                                                        </Link>
-    
-                                                        
-                                                    </div>
-                                                </div>
+                                              
                                             </Form>
                                         </div>
                                     </CardBody>

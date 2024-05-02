@@ -144,7 +144,7 @@ const CustomersGlobalFilter = () => {
                     <Col sm={4} className='d-flex flex-row p-2'>
                     <label htmlFor="sortingMethod" className="form-label form-select-label p-1">가입형태:</label>
                     
-                        <div className='p-1'>
+                        <div className='p-1'  style={{ width: '130px' }}>
                             <Select
                                 value={customerStatus}
                                 onChange={handlecustomerStatus}
@@ -155,7 +155,7 @@ const CustomersGlobalFilter = () => {
                                
                             ></Select>
                         </div>
-                        <div className='p-1'>
+                        <div className='p-1'   style={{ width: '130px' }}>
                             <Select
                                 value={customerSignupType}
                                 onChange={handlecustomerSignupType}
@@ -163,6 +163,7 @@ const CustomersGlobalFilter = () => {
                                 name="choices-single-default"
                                 id="idStatus"
                                 placeholder="전체"
+                              
                             ></Select>
                         </div>
                        

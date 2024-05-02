@@ -225,38 +225,7 @@ const Register = () => {
                                                     </Button>
                                                 </div>
 
-                                                <div className="mt-4 text-center">
-                                                    <div className="signin-other-title">
-                                                        <h5 className="fs-13 mb-4 title text-muted">Create account with</h5>
-                                                    </div>
-                                                    <div className="d-flex justify-content-evenly">
-                                                      
-                                                      <Link
-                                                          to="#"
-                                                          className="btn btn-danger btn-icon me-1"
-                                                         
-                                                      >
-                                                         <img src={google} alt="" height="40" />
-                                                      </Link>
-                                                      <Link
-                                                          to="#"
-                                                          className="btn btn-success btn-icon me-1"
-                                                        
-                                                      >
-                                                          <img src={naver} alt="" height="40" />
-                                                      </Link>
-                                                      <Link
-                                                          to="#"
-                                                          className="btn btn-warning btn-icon me-1"
-                                                        
-                                                      >
-                                                          {/* <i className="ri-kakao-talk-fill fs-16" /> */}
-                                                          <img src={kakao} alt="" height="40" />
-                                                      </Link>
-  
-                                                      
-                                                  </div>
-                                                </div>
+                                               
                                             </Form>
                                         </div>
                                     </CardBody>
