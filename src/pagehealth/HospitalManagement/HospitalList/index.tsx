@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { isEmpty } from "lodash";
-
+import { BrowserRouter as Router } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // Import Images
 import avatar10 from "../../../assets/images/users/avatar-10.jpg";
 
@@ -56,12 +57,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { createSelector } from "reselect";
 import moment from "moment";
 
+
 import dummyImg from "../../../assets/images/users/user-dummy-img.jpg";
+import { HospitalGlobalFilter } from "Components/Common/GlobalSearchFilter";
 
 
 
 const HospitalList = () => {
   const dispatch: any = useDispatch();
+
+  
+  let navigate = useNavigate();
   const selectLayoutState = (state: any) => state.Crm;
   const crmcontactData = createSelector(
     selectLayoutState,
@@ -76,6 +82,7 @@ const HospitalList = () => {
     crmcontacts, error
   } = useSelector(crmcontactData);
 
+  
   useEffect(() => {
     if (crmcontacts && !crmcontacts.length) {
       dispatch(onGetContacts());
@@ -92,6 +99,7 @@ const HospitalList = () => {
       setIsEdit(false);
     }
   }, [crmcontacts]);
+
 
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -312,13 +320,13 @@ const HospitalList = () => {
         cell: (cell: any) => (
           <>
             <div className="d-flex align-items-center">
-              <div className="flex-shrink-0">
+              {/* <div className="flex-shrink-0">
                 <img
                   src={cell.row.original.img}
                   alt=""
                   className="avatar-xs rounded-circle"
                 />
-              </div>
+              </div> */}
               <div className="flex-grow-1 ms-2 name">
                 {cell.getValue()}
               </div>
@@ -374,12 +382,48 @@ const HospitalList = () => {
       {
         header: "특화검진",
         accessorKey: "tags",
-        enableColumnFilter: false,
-        cell: (cell: any) => (
-          <>
-            {cell.getValue().map((item: any, key: any) => (<span className="badge bg-primary-subtle text-primary me-1" key={key}>{item}</span>))}
-          </>
-        ),
+        enableColumnFilter: false
+      },
+      {
+        header: "수정",
+        cell: (cellProps: any) => {
+          return (
+            <ul className="list-inline hstack gap-2 mb-0">
+              <li className="list-inline-item edit" title="Edit">
+                {/* <Link
+                  to="#"
+                  className="text-primary d-inline-block edit-item-btn"
+                  onClick={() => handleEditCustomerClick(cellProps.row.original)}
+                >
+                  <i className="ri-pencil-fill fs-16"></i>
+                </Link> */}
+                <Link to="/edit-hospital-admin" className="text-primary d-inline-block edit-item-btn">
+  <i className="ri-pencil-fill fs-16"></i>
+</Link>
+              </li>
+            </ul>
+          );
+        },
+      },
+      
+      {
+        header: "삭제",
+        cell: (cellProps: any) => {
+          return (
+            <ul className="list-inline hstack gap-2 mb-0">
+             
+             <li className="list-inline-item" title="Remove">
+                <Link
+                  to="#"
+                  className="text-danger d-inline-block remove-item-btn"
+                  onClick={() => { const customerData = cellProps.row.original; onClickDelete(customerData); }}
+                >
+                  <i className="ri-delete-bin-5-fill fs-16"></i>
+                </Link>
+              </li>
+            </ul>
+          );
+        },
       },
       // {
       //   header: "Last Contacted",
@@ -393,60 +437,50 @@ const HospitalList = () => {
       //   ),
       // },
      
-      {
-        header: "Action",
-        cell: (cellProps: any) => {
-          return (
-            <ul className="list-inline hstack gap-2 mb-0">
-              {/* <li className="list-inline-item edit" title="Call">
-                <Link to="#" className="text-muted d-inline-block">
-                  <i className="ri-phone-line fs-16"></i>
-                </Link>
-              </li>
-              <li className="list-inline-item edit" title="Message">
-                <Link to="#" className="text-muted d-inline-block">
-                  <i className="ri-question-answer-line fs-16"></i>
-                </Link>
-              </li> */}
-              <li className="list-inline-item">
-                <UncontrolledDropdown>
-                  <DropdownToggle
-                    href="#"
-                    className="btn btn-soft-primary btn-sm dropdown"
-                    tag="button"
-                  >
-                    <i className="ri-more-fill align-middle"></i>
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-menu-end">
-                    <DropdownItem className="dropdown-item" href="#"
-                      onClick={() => { const contactData = cellProps.row.original; setInfo(contactData); }}
-                    >
-                      <i className="ri-eye-fill align-bottom me-2 text-muted"></i>{" "}
-                      View
-                    </DropdownItem>
-                    <DropdownItem
-                      className="dropdown-item edit-item-btn"
-                      href="#"
-                      onClick={() => { const contactData = cellProps.row.original; handleContactClick(contactData); }}
-                    >
-                      <i className="ri-pencil-fill align-bottom me-2 text-muted"></i>{" "}
-                      Edit
-                    </DropdownItem>
-                    <DropdownItem
-                      className="dropdown-item remove-item-btn"
-                      href="#"
-                      onClick={() => { const contactData = cellProps.row.original; onClickDelete(contactData); }}
-                    >
-                      <i className="ri-delete-bin-fill align-bottom me-2 text-muted"></i>{" "}
-                      Delete
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </li>
-            </ul>
-          );
-        },
-      },
+      // {
+      //   header: "Action",
+      //   cell: (cellProps: any) => {
+      //     return (
+      //       <ul className="list-inline hstack gap-2 mb-0">
+      //         <li className="list-inline-item">
+      //           <UncontrolledDropdown>
+      //             <DropdownToggle
+      //               href="#"
+      //               className="btn btn-soft-primary btn-sm dropdown"
+      //               tag="button"
+      //             >
+      //               <i className="ri-more-fill align-middle"></i>
+      //             </DropdownToggle>
+      //             <DropdownMenu className="dropdown-menu-end">
+      //               <DropdownItem className="dropdown-item" href="#"
+      //                 onClick={() => { const contactData = cellProps.row.original; setInfo(contactData); }}
+      //               >
+      //                 <i className="ri-eye-fill align-bottom me-2 text-muted"></i>{" "}
+      //                 View
+      //               </DropdownItem>
+      //               <DropdownItem
+      //                 className="dropdown-item edit-item-btn"
+      //                 href="#"
+      //                 onClick={() => { const contactData = cellProps.row.original; handleContactClick(contactData); }}
+      //               >
+      //                 <i className="ri-pencil-fill align-bottom me-2 text-muted"></i>{" "}
+      //                 Edit
+      //               </DropdownItem>
+      //               <DropdownItem
+      //                 className="dropdown-item remove-item-btn"
+      //                 href="#"
+      //                 onClick={() => { const contactData = cellProps.row.original; onClickDelete(contactData); }}
+      //               >
+      //                 <i className="ri-delete-bin-fill align-bottom me-2 text-muted"></i>{" "}
+      //                 Delete
+      //               </DropdownItem>
+      //             </DropdownMenu>
+      //           </UncontrolledDropdown>
+      //         </li>
+      //       </ul>
+      //     );
+      //   },
+      // },
     ],
     [handleContactClick, checkedAll]
   );
@@ -524,65 +558,59 @@ const HospitalList = () => {
           <BreadCrumb title="병원목록" pageTitle="병원관리" />
           <Row>
             <Col lg={12}>
-              <Card>
+              <Card >
                 <CardHeader>
-                  <div className="d-flex align-items-center flex-wrap gap-2">
-                    <div className="flex-grow-1">
-                      <button
-                        className="btn btn-primary add-btn"
-                        onClick={() => {
-                          setModal(true);
-                        }}
-                      >
-                        <i className="ri-add-fill me-1 align-bottom"></i> 병원 등록
-                      </button>
+                  {/* <div className="d-flex align-items-center flex-wrap gap-2"> */}
+                   
+                    <Row>  <HospitalGlobalFilter/></Row>
+                  
+                    <Row className="g-4 align-items-center">
+                    <div className="col-sm">
+                      <div>
+                        <h5 className="card-title mb-0">병원목록</h5>
+                      </div>
                     </div>
-                    <div className="flex-shrink-0">
-                      <div className="hstack text-nowrap gap-2">
-                        {isMultiDeleteButton && <button className="btn btn-soft-danger" id="remove-actions"
+                    <div className="col-sm-auto">
+                      <div>
+                        {isMultiDeleteButton && <button className="btn btn-soft-danger me-1"
                           onClick={() => setDeleteModalMulti(true)}
                         ><i className="ri-delete-bin-2-line"></i></button>}
-                        {/* <button className="btn btn-secondary">
-                          <i className="ri-filter-2-line me-1 align-bottom"></i>{" "}
-                          Filters
-                        </button> */}
+                        <button
+      type="button"
+      className="btn btn-secondary add-btn me-1"
+      id="create-btn"
+      onClick={() => {
+        setIsEdit(false);
+        navigate("/add-hospital-admin"); // Bu yerda yangi sahifaga yo'naltirish manzilini ko'rsating
+      }}
+    >
+      <i className="ri-add-line align-bottom me-1"></i> 병원 등록
+    </button>
                         <button type="button" className="btn btn-success" onClick={() => setIsExportCSV(true)}>
                           <i className="ri-file-download-line align-bottom me-1"></i>{" "}
                           엑셀다운로드
                         </button>
-
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            href="#"
-                            className="btn btn-soft-info"
-                            tag="button"
-                          >
-                            <i className="ri-more-2-fill"></i>
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-end">
-                            <DropdownItem className="dropdown-item" href="#">All</DropdownItem>
-                            <DropdownItem className="dropdown-item" href="#">Last Week</DropdownItem>
-                            <DropdownItem className="dropdown-item" href="#">Last Month</DropdownItem>
-                            <DropdownItem className="dropdown-item" href="#">Last Year</DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-
                       </div>
                     </div>
-                  </div>
+                  </Row>
+                  {/* </div> */}
                 </CardHeader>
               </Card>
             </Col>
-            <Col xxl={9}>
+            <Col xxl={12}>
+              
               <Card id="contactList">
+              
                 <CardBody className="pt-0">
+               
                   <div>
+                
                     {crmcontacts && crmcontacts.length > 0 ? (
                       <TableContainer
                         columns={columns}
                         data={(crmcontacts || [])}
-                        isGlobalFilter={true}
-                        customPageSize={8}
+                        // isGlobalFilter={true}
+                        // customPageSize={8}
                         divClass="table-responsive table-card mb-3"
                         tableClass="align-middle table-nowrap"
                         theadClass="table-light"
@@ -859,7 +887,7 @@ const HospitalList = () => {
               </Card>
             </Col>
 
-            <Col xxl={3}>
+            {/* <Col xxl={3}>
               <Card id="contact-view-detail">
                 <CardBody className="text-center">
                   <div className="position-relative d-inline-block">
@@ -962,7 +990,7 @@ const HospitalList = () => {
                   </div>
                 </CardBody>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </div>

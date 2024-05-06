@@ -51,6 +51,15 @@ import AffiliatesList from "pagehealth/AffiliateManagement/AffilatesList";
 import ReservationList from "pagehealth/ReservationManagement/ReservationList";
 import AddCustomerPage from "Components/AddCustomer/AddCustomer";
 import EditCustomer from "Components/EditCustomer/EditCustomer";
+import MemberViewDetails from "Components/CustomerViewDetails";
+import WithdrawalViewDetails from "Components/CustomerWithdrawalView";
+import AddHospitalAdmin from "Components/AddHospitalAdmin";
+import EditHospitalAdmin from "Components/EditHospitalAdmin";
+import HospitalViewDetails from "Components/HospitalViewDetails";
+import AddAffilates from "Components/AddAffilates";
+import EditAffilates from "Components/EditAffilates";
+import AddCheckup from "Components/AddCheckupProgram";
+import EditCheckup from "Components/EditCheckupProgram";
 
 
 const authProtectedRoutes = [
@@ -63,20 +72,33 @@ const authProtectedRoutes = [
   { path: "/apps-ecommerce-sellers", component: <EcommerceSellers /> },
   { path: "/apps-ecommerce-seller-details", component: <EcommerceSellerDetail /> },
   { path: "/apps-todo", component: <ToDoList /> },
-  { path: "/add-customer",  component: <AddCustomerPage />},
-  { path: "/edit-customer",  component: <EditCustomer />},
 
+ 
 
   // Member Management
   { path: "/apps-member-list", component: <MemberList /> },
+  { path: "/add-customer",  component: <AddCustomerPage />},
+  { path: "/edit-customer",  component: <EditCustomer />},
+  { path: "/view-details",  component: <MemberViewDetails />},
+
   { path: "/apps-member-withdrawal", component: <MemberWithdrawal/> },
+   {path: "/view-withdrawal-details", component: <WithdrawalViewDetails/>},
 
   // Hospital Management
   { path: "/apps-hospital-list", component: <HospitalList /> },
+  { path: "/add-hospital-admin",  component: <AddHospitalAdmin />},
+  { path: "/edit-hospital-admin",  component: <EditHospitalAdmin />},
+  {path: "/hospital-view-details", component: <HospitalViewDetails/>},
+
+
   { path: "/apps-checkup-program", component: <CheckupProgram /> },
+  {path: "/add-checkup-program", component: <AddCheckup/>},
+  {path: "/edit-checkup-program", component: <EditCheckup/>},
 
   // Affiliate management
   { path: "/apps-affiliates-list", component: <AffiliatesList /> },
+  { path: "/add-affiliates",  component: <AddAffilates />},
+  { path: "/edit-affiliates",  component: <EditAffilates />},
 
   // Reservation management
   { path: "/apps-reservation-list", component: <ReservationList/>},

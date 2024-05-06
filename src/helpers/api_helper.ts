@@ -10,14 +10,15 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 
 // content type
 const authUser: any = sessionStorage.getItem("authUser")
-const token = JSON.parse(authUser) ? JSON.parse(authUser).token : null;
-if (token)
-  axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+// const token = JSON.parse(authUser) ? JSON.parse(authUser).token : null;
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3NlcSI6MSwidXNlcl9pZCI6Im1yaGVhbHRoIiwidXNlcl9uYW1lIjoi66-4656YIiwidXNlcl9lbWFpbCI6ImFkbWluQG1yLmNvbSIsInVzZXJfYmlydGgiOiIxOTcwLTAxLTAxIiwidXNlcl9tb2JpbGUiOiIwMTAtNTUyMy01NDM3IiwidXNlcl9nZW5kZXIiOiJNIiwidXNlcl96aXAiOm51bGwsInVzZXJfYWRkcjEiOm51bGwsInVzZXJfYWRkcjIiOm51bGwsImF1dGhfc2VxIjo0LCJhdXRoX2NvZGUiOiJTVVBFUl9BRE1JTiIsImF1dGhfbmFtZSI6Iuy0neq0hOq0gOumrOyekCIsInNuc19zZXEiOm51bGwsInNuc19uYW1lIjoiTk9NQUwiLCJob3Nfc2VxIjpudWxsLCJob3NfbmFtZSI6bnVsbCwiZW50ZXJfc2VxIjpudWxsLCJlbnRlcl9uYW1lIjpudWxsLCJzdGF0ZV9zZXEiOjEsInN0YXRlX25hbWUiOiLsoJXsg4EiLCJzdGF0ZV9jb250ZW50Ijoi7KCV7IOB7KCB7Jy866GcIOyEnOu5hOyKpCDsnbTsmqkg6rCA64ql7ZWcIO2ajOybkCIsImxvZ2luX2FibGVfeW4iOiJZIiwiaWF0IjoxNzE0NDU4NDkxLCJleHAiOjE3MjMwOTg0OTF9.HGnoj7_faDHvflFoE6jj9ppAMr4YeX-DbkKNVNIxByM"
+if (token) axios.defaults.headers.token = token
+// axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 
 // intercepting to capture errors
 axios.interceptors.response.use(
   function (response) {
-    return response.data ? response.data : response;
+    return response;
   },
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
@@ -42,8 +43,9 @@ axios.interceptors.response.use(
  * Sets the default authorization
  * @param {*} token
  */
-const setAuthorization = (token:string) => {
-  axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+const setAuthorization = (token: string) => {
+  axios.defaults.headers.token = token
+  // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 };
 
 class APIClient {
@@ -76,17 +78,17 @@ class APIClient {
   /**
    * post given data to url
    */
-  create = (url:string, data:any) => {
+  create = (url: string, data: any) => {
     return axios.post(url, data);
   };
   /**
    * Updates data
    */
-  update = (url:string, data:any) => {
+  update = (url: string, data: any) => {
     return axios.patch(url, data);
   };
 
-  put = (url:string, data:any) => {
+  put = (url: string, data: any) => {
     return axios.put(url, data);
   };
   /**

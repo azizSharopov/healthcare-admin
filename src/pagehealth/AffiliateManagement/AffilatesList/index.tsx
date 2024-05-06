@@ -14,10 +14,12 @@ import {
   Input,
   FormFeedback,
 } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Flatpickr from "react-flatpickr";
 import { isEmpty } from "lodash";
 import moment from "moment";
+import { useNavigate } from 'react-router-dom';
+
 
 // Formik
 import * as Yup from "yup";
@@ -51,6 +53,7 @@ import { createSelector } from "reselect";
 const AffilatesList = () => {
   const dispatch: any = useDispatch();
 
+  const navigate = useNavigate();
   const selectLayoutState = (state: any) => state.Ecommerce;
   const ecomCustomerProperties = createSelector(
     selectLayoutState,
@@ -275,66 +278,19 @@ const AffilatesList = () => {
         enableSorting: false,
       },
       {
-        header: "아이디",
-        accessorKey: "email",
-        enableColumnFilter: false,
-      },
-      {
-        header: "이름",
+        header: "업체명",
         accessorKey: "customer",
         enableColumnFilter: false,
       },
-      // {
-      //   header: "신상",
-      //   cell: (cellProps: any) => {
-      //     return (
-      //       <ul className="list-inline hstack gap-2 mb-0">
-      //         <li className="list-inline-item edit" title="Edit">
-      //           <Link
-      //             to="#"
-      //             className="text-primary d-inline-block edit-item-btn"
-      //             onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
-      //           >
-
-      //             <i className="ri-pencil-fill fs-16"></i>
-      //           </Link>
-      //         </li>
-      //         <li className="list-inline-item" title="Remove">
-      //           <Link
-      //             to="#"
-      //             className="text-danger d-inline-block remove-item-btn"
-      //             onClick={() => { const customerData = cellProps.row.original; onClickDelete(customerData); }}
-      //           >
-      //             <i className="ri-delete-bin-5-fill fs-16"></i>
-      //           </Link>
-      //         </li>
-      //       </ul>
-      //     );
-      //   },
-      // },
-    
       {
-        header: "신상",
-        cell: (cellProps: any) => {
-          const customerData = cellProps.row.original;
-      
-          // Ayol yoki erkaklik ikonini aniqlash
-          const genderIcon = customerData.gender === 'male' ? 'ri-male-fill' : 'ri-female-fill';
-        
-          // Yoshni hisoblash
-          const age = new Date().getFullYear() - new Date(customerData.birthDate).getFullYear();
-      
-          return (
-            <table>
-              <tbody>
-                <tr>
-                  <td><i className={`${genderIcon} fs-16 text-primary`} title={customerData.gender || 'nan'}></i></td>
-                  <td>{age || 'nan'}</td>
-                </tr>
-              </tbody>
-            </table>
-          );
-        },
+        header: "업체코드",
+        accessorKey: "customer",
+        enableColumnFilter: false,
+      },
+      {
+        header: "담당자",
+        accessorKey: "customer",
+        enableColumnFilter: false,
       },
       {
         header: "연락처",
@@ -342,17 +298,12 @@ const AffilatesList = () => {
         enableColumnFilter: false,
       },
       {
-        header: "회원그룹",
-        accessorKey: "company",
+        header: "이메일",
+        accessorKey: "email",
         enableColumnFilter: false,
       },
       {
-        header: "가입경로",
-        accessorKey: "company",
-        enableColumnFilter: false,
-      },
-      {
-        header: "상태",
+        header: "제휴상태",
         accessorKey: "status",
         enableColumnFilter: false,
         cell: (cell: any) => {
@@ -382,18 +333,13 @@ const AffilatesList = () => {
         cell: (cellProps: any) => {
           return (
             <ul className="list-inline hstack gap-2 mb-0">
-              <li className="list-inline-item edit" title="Edit">
-                <Link
-                  to="#"
-                  className="text-primary d-inline-block edit-item-btn"
-                  onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
-                >
-
-                  <i className="ri-pencil-fill fs-16"></i>
-                </Link>
-              </li>
+            <li className="list-inline-item edit" title="Edit">
              
-            </ul>
+              <Link to="/edit-affiliates" className="text-primary d-inline-block edit-item-btn">
+<i className="ri-pencil-fill fs-16"></i>
+</Link>
+            </li>
+          </ul>
           );
         },
       },
@@ -423,7 +369,7 @@ const AffilatesList = () => {
   // Export Modal
   const [isExportCSV, setIsExportCSV] = useState<boolean>(false);
 
-  document.title = "Customers | Velzon - React Admin & Dashboard Template";
+  document.title = "Customers | Healthcare - React Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">
@@ -462,7 +408,7 @@ const AffilatesList = () => {
                         {isMultiDeleteButton && <button className="btn btn-soft-danger me-1"
                           onClick={() => setDeleteModalMulti(true)}
                         ><i className="ri-delete-bin-2-line"></i></button>}
-                        <button
+                        {/* <button
                           type="button"
                           className="btn btn-secondary add-btn me-1"
                           id="create-btn"
@@ -470,7 +416,18 @@ const AffilatesList = () => {
                         >
                           <i className="ri-add-line align-bottom me-1"></i>
                           제휴사등록
-                        </button>{" "}
+                        </button>{" "} */}
+                        <button
+      type="button"
+      className="btn btn-secondary add-btn me-1"
+      id="create-btn"
+      onClick={() => {
+        setIsEdit(false);
+        navigate('/add-affiliates'); // Corrected the navigation path and method
+      }}
+    >
+      <i className="ri-add-line align-bottom me-1"></i> 제휴사등록
+    </button>
                         <button type="button" className="btn btn-success" onClick={() => setIsExportCSV(true)}>
                           <i className="ri-file-download-line align-bottom me-1"></i>{" "}
                           엑셀다운로드

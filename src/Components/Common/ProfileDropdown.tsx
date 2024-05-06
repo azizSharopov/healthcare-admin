@@ -18,14 +18,25 @@ const ProfileDropdown = () => {
     const [userName, setUserName] = useState("Admin");
 
     useEffect(() => {
-        const authUSer : any = sessionStorage.getItem("authUser");
+        const authUSer: any = sessionStorage.getItem('authUser');
         if (authUSer) {
-            const obj : any = JSON.parse(authUSer);
-            setUserName(process.env.REACT_APP_DEFAULTAUTH === "fake" ? obj.username === undefined ? user.first_name ? user.first_name : obj.data.first_name : "Admin" || "Admin" :
-                process.env.REACT_APP_DEFAULTAUTH === "firebase" ? obj.email && obj.email : "Admin"
-            );
+          const obj: any = JSON.parse(authUSer);
+          console.log(obj, user);
+          setUserName(user?.first_name ? user?.first_name : obj?.first_name ?? '');
+          // setUserName(process.env.REACT_APP_DEFAULTAUTH === "fake" ? obj.username === undefined ? user.first_name ? user.first_name : obj.data.first_name : "Admin" || "Admin" :
+          //     process.env.REACT_APP_DEFAULTAUTH === "firebase" ? obj.email && obj.email : "Admin"
+          // );
         }
-    }, [userName, user]);
+      }, [userName, user]);
+    // useEffect(() => {
+    //     const authUSer : any = sessionStorage.getItem("authUser");
+    //     if (authUSer) {
+    //         const obj : any = JSON.parse(authUSer);
+    //         setUserName(process.env.REACT_APP_DEFAULTAUTH === "fake" ? obj.username === undefined ? user.first_name ? user.first_name : obj.data.first_name : "Admin" || "Admin" :
+    //             process.env.REACT_APP_DEFAULTAUTH === "firebase" ? obj.email && obj.email : "Admin"
+    //         );
+    //     }
+    // }, [userName, user]);
 
     //Dropdown Toggle
     const [isProfileDropdown, setIsProfileDropdown] = useState<boolean>(false);

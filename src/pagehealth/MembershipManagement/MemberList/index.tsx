@@ -49,6 +49,7 @@ import Loader from "../../../Components/Common/Loader";
 // Export Modal
 import ExportCSVModal from "../../../Components/Common/ExportCSVModal";
 import { createSelector } from "reselect";
+import { CustomersGlobalFilter } from "Components/Common/GlobalSearchFilter";
 
 // Define the calculateAge function outside the component
 const calculateAge = (birthdate: string) => {
@@ -333,37 +334,27 @@ const MemberList = () => {
       },
       {
         header: "아이디",
-        accessorKey: "email",
+        accessorKey: "user_id",
         enableColumnFilter: false,
       },
       {
         header: "이름",
-        accessorKey: "customer",
+        accessorKey: "user_name",
         enableColumnFilter: false,
       },
       {
         header: "신상",
-        accessorKey: "birthday",
+        accessorKey: "user_gender",
         enableColumnFilter: false,
       },
       {
         header: "연락처",
-        accessorKey: "phone",
-        enableColumnFilter: false,
-      },
-      {
-        header: "회원그룹",
-        accessorKey: "company",
-        enableColumnFilter: false,
-      },
-      {
-        header: "가입경로",
-        accessorKey: "company",
+        accessorKey: "user_mobile",
         enableColumnFilter: false,
       },
       {
         header: "상태",
-        accessorKey: "status",
+        accessorKey: "state_name",
         enableColumnFilter: false,
         cell: (cell: any) => {
           switch (cell.getValue()) {
@@ -378,7 +369,7 @@ const MemberList = () => {
       },
       {
         header: "등록일",
-        accessorKey: "date",
+        accessorKey: "reg_dt",
         enableColumnFilter: false,
         cell: (cell: any) => (
           <>
@@ -393,13 +384,6 @@ const MemberList = () => {
           return (
             <ul className="list-inline hstack gap-2 mb-0">
               <li className="list-inline-item edit" title="Edit">
-                {/* <Link
-                  to="#"
-                  className="text-primary d-inline-block edit-item-btn"
-                  onClick={() => handleEditCustomerClick(cellProps.row.original)}
-                >
-                  <i className="ri-pencil-fill fs-16"></i>
-                </Link> */}
                 <Link to="/edit-customer" className="text-primary d-inline-block edit-item-btn">
   <i className="ri-pencil-fill fs-16"></i>
 </Link>
@@ -463,6 +447,7 @@ const MemberList = () => {
             <Col lg={12}>
               <Card id="customerList">
                 <CardHeader className="border-0">
+                  <Row><CustomersGlobalFilter/></Row>
                   <Row className="g-4 align-items-center">
                     <div className="col-sm">
                       <div>
@@ -510,9 +495,9 @@ const MemberList = () => {
         <TableContainer
           columns={columns}
           data={customers}
-          isGlobalFilter={true}
-          customPageSize={pageSize}
-          isCustomerFilter={true}
+          // isGlobalFilter={true}
+          // customPageSize={pageSize}
+          // isCustomerFilter={true}
           theadClass="table-light text-muted"
           divClass="table-responsive table-card mb-3"
           tableClass="align-middle table-nowrap"

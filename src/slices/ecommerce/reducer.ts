@@ -101,6 +101,7 @@ const EcommerceSlice = createSlice({
     });
 
     builder.addCase(getCustomers.fulfilled, (state:any, action:any) => {
+      console.log(action.payload)
       state.customers = action.payload;
       state.isCustomerCreated = false;
       state.isCustomerSuccess = true;

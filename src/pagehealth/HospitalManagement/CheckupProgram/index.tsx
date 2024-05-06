@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 // Import Images
 import multiUser from '../../../assets/images/users/multi-user.jpg';
-
+import { useNavigate } from 'react-router-dom';
 import {
   Col,
   Container,
@@ -54,10 +54,12 @@ import Loader from "../../../Components/Common/Loader";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createSelector } from "reselect";
+import { HospitalCheckupFilter, HospitalGlobalFilter } from "Components/Common/GlobalSearchFilter";
 
 const CheckupProgram = () => {
   const dispatch: any = useDispatch();
 
+  let navigate = useNavigate();
   const selectLayoutState = (state: any) => state.Crm;
   const crmcompaniesData = createSelector(
     selectLayoutState,
@@ -388,47 +390,78 @@ const CheckupProgram = () => {
        
       },
       {
-        header: "Action",
+        header: "수정",
+        cell: (cellProps: any) => {
+          return (
+            <ul className="list-inline hstack gap-2 mb-0">
+              <li className="list-inline-item edit" title="Edit">
+                {/* <Link
+                  to="#"
+                  className="text-primary d-inline-block edit-item-btn"
+                  onClick={() => handleEditCustomerClick(cellProps.row.original)}
+                >
+                  <i className="ri-pencil-fill fs-16"></i>
+                </Link> */}
+                <Link to="/edit-checkup-program" className="text-primary d-inline-block edit-item-btn">
+  <i className="ri-pencil-fill fs-16"></i>
+</Link>
+              </li>
+            </ul>
+          );
+        },
+      },
+      {
+        header: "삭제",
         cell: (cell: any) => {
           return (
             <ul className="list-inline hstack gap-2 mb-0">
-              {/* <li className="list-inline-item edit" title="Call">
-                <Link to="#" className="text-muted d-inline-block">
-                  <i className="ri-phone-line fs-16"></i>
-                </Link>
-              </li>
-              <li className="list-inline-item edit" title="Message">
-                <Link to="#" className="text-muted d-inline-block">
-                  <i className="ri-question-answer-line fs-16"></i>
-                </Link>
-              </li>
-              <li className="list-inline-item" title="View">
-                <Link to="#"
-                  onClick={() => { const companyData = cell.row.original; setInfo(companyData); }}
-                >
-                  <i className="ri-eye-fill align-bottom text-muted"></i>
-                </Link>
-              </li> */}
-              <li className="list-inline-item" title="Edit">
-                <Link className="edit-item-btn" to="#"
-                  onClick={() => { const companyData = cell.row.original; handleCompanyClick(companyData); }}
-                >
-                  <i className="ri-pencil-fill align-bottom text-muted"></i>
-                </Link>
-              </li>
-              <li className="list-inline-item" title="Delete">
+             
+             <li className="list-inline-item" title="Remove">
                 <Link
-                  className="remove-item-btn"
-                  onClick={() => { const companyData = cell.row.original; onClickDelete(companyData); }}
                   to="#"
+                  className="text-danger d-inline-block remove-item-btn"
+                  onClick={() => { const companyData = cell.row.original; onClickDelete(companyData); }}
                 >
-                  <i className="ri-delete-bin-fill align-bottom text-muted"></i>
+                  <i className="ri-delete-bin-5-fill fs-16"></i>
                 </Link>
               </li>
             </ul>
           );
         },
       },
+      // {
+      //   header: "Action",
+      //   cell: (cell: any) => {
+      //     return (
+      //       <ul className="list-inline hstack gap-2 mb-0">
+
+      //         <li className="list-inline-item" title="View">
+      //           <Link to="#"
+      //             onClick={() => { const companyData = cell.row.original; setInfo(companyData); }}
+      //           >
+      //             <i className="ri-eye-fill align-bottom text-muted"></i>
+      //           </Link>
+      //         </li>
+      //         <li className="list-inline-item" title="Edit">
+      //           <Link className="edit-item-btn" to="#"
+      //             onClick={() => { const companyData = cell.row.original; handleCompanyClick(companyData); }}
+      //           >
+      //             <i className="ri-pencil-fill align-bottom text-muted"></i>
+      //           </Link>
+      //         </li>
+      //         <li className="list-inline-item" title="Delete">
+      //           <Link
+      //             className="remove-item-btn"
+      //             onClick={() => { const companyData = cell.row.original; onClickDelete(companyData); }}
+      //             to="#"
+      //           >
+      //             <i className="ri-delete-bin-fill align-bottom text-muted"></i>
+      //           </Link>
+      //         </li>
+      //       </ul>
+      //     );
+      //   },
+      // },
     ],
     [handleCompanyClick, checkedAll]
   );
@@ -439,7 +472,7 @@ const CheckupProgram = () => {
   // Export Modal
   const [isExportCSV, setIsExportCSV] = useState<boolean>(false);
 
-  document.title = "Companies | Velzon - React Admin & Dashboard Template";
+  document.title = "Companies | Healthcare - React Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">
@@ -463,17 +496,30 @@ const CheckupProgram = () => {
         />
 
         <Container fluid>
-          <BreadCrumb title="검진프로그램" pageTitle="병원목록" />
+          <BreadCrumb title="검진프로그램" pageTitle="병원관리" />
 
           <Row>
             <Col lg={12}>
               <Card>
                 <CardHeader>
+                
                   <div className="d-flex align-items-center flex-wrap gap-2">
-                    <div className="flex-grow-1">
-                      <button className="btn btn-primary add-btn" onClick={() => { setIsEdit(false); toggle(); }}>
+                    
+                  <div className="flex-grow-1">
+                  
+                      <button
+                        className="btn btn-primary add-btn"
+                        // onClick={() => {
+                        //   setModal(true);
+                        // }}
+                        onClick={() => {
+                          setIsEdit(false);
+                          navigate("/add-checkup-program"); // Bu yerda yangi sahifaga yo'naltirish manzilini ko'rsating
+                        }}
+                      >
                         <i className="ri-add-fill me-1 align-bottom"></i> 검진프로그램 등록
                       </button>
+                 
                     </div>
                     <div className="flex-shrink-0">
                       <div className="hstack text-nowrap gap-2">
@@ -488,7 +534,7 @@ const CheckupProgram = () => {
                           <i className="ri-file-download-line align-bottom me-1"></i>{" "}
                           엑셀다운로드
                         </button>
-                        <UncontrolledDropdown>
+                        {/* <UncontrolledDropdown>
                           <DropdownToggle
                             href="#"
                             className="btn btn-soft-info btn-icon"
@@ -510,28 +556,30 @@ const CheckupProgram = () => {
                               Last Year
                             </DropdownItem>
                           </DropdownMenu>
-                        </UncontrolledDropdown>
+                        </UncontrolledDropdown> */}
                       </div>
                     </div>
                   </div>
                 </CardHeader>
               </Card>
             </Col>
-            <Col xxl={9}>
+            <Col xxl={12}>
+            
               <Card id="companyList">
-
+            
                 <CardBody className="pt-0">
+                <Row style={{height: '300px'}}>  <HospitalCheckupFilter/></Row>
                   <div>
                     {companies && companies.length > 0 ? (
                       <TableContainer
                         columns={columns}
                         data={(companies || [])}
-                        isGlobalFilter={true}
-                        customPageSize={7}
+                        // isGlobalFilter={true}
+                        // customPageSize={7}
                         divClass="table-responsive table-card mb-2"
                         tableClass="align-middle table-nowrap"
                         theadClass="table-light"
-                        isCompaniesFilter={true}
+                        // isCompaniesFilter={true}
                         SearchPlaceholder='Search for company...'
                       />
                     ) : (<Loader error={error} />)
@@ -863,7 +911,7 @@ const CheckupProgram = () => {
                 </CardBody>
               </Card>
             </Col>
-            <Col xxl={3}>
+            {/* <Col xxl={3}>
               <Card id="company-view-detail">
                 <CardBody className="text-center">
                   <div className="position-relative d-inline-block">
@@ -973,7 +1021,7 @@ const CheckupProgram = () => {
                   </div>
                 </div>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </div>

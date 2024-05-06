@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { CardBody, Col, Row, Table } from "reactstrap";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import {
   Column,
@@ -56,7 +57,7 @@ const Filter = ({
 };
 
 // Global Filter
-const DebouncedInput = ({
+export const DebouncedInput = ({
   value: initialValue,
   onChange,
   debounce = 500,
@@ -199,6 +200,13 @@ const TableContainer = ({
     Number(customPageSize) && setPageSize(Number(customPageSize));
   }, [customPageSize, setPageSize]);
 
+  let navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    // URL manzilini ko'rsatish, masalan '/details'
+    navigate('/view-details');
+  };
+
   return (
     <Fragment>
       {isGlobalFilter && <Row className="mb-3 ">
@@ -229,13 +237,13 @@ const TableContainer = ({
                     </Col>
                     <Col sm={2}>
                         <div>
-                            <button
-                                type="button"
-                                className="btn btn-secondary w-100"
-                             
-                            >  
-                                상세검색
-                            </button>
+                        <button
+        type="button"
+        className="btn btn-secondary w-100"
+        onClick={handleButtonClick}
+      >
+        상세검색
+      </button>
                         </div>
                     </Col>
               {/* {isProductsFilter && (
@@ -273,25 +281,7 @@ const TableContainer = ({
                 <TaskListGlobalFilter />
               )} */}
             </Row>
-            <Row>
-            { isCustomerFilter && (
-
-            < CustomersGlobalFilter/>
-            )}
-{/* {isOrderFilter && (
-  <OrderGlobalFilter />
-)}
-{isContactsFilter && (
-  <ContactsGlobalFilter />
-)}
-{isCompaniesFilter && (
-  <CompaniesGlobalFilter />
-)}
-{isLeadsFilter && (
-  <LeadsGlobalFilter />
-)} */}
-
-            </Row>
+          
           </form>
         </CardBody>
       </Row>}

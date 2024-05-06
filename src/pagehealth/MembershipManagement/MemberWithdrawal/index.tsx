@@ -46,6 +46,7 @@ import Loader from "../../../Components/Common/Loader";
 // Export Modal
 import ExportCSVModal from "../../../Components/Common/ExportCSVModal";
 import { createSelector } from "reselect";
+import { CustomersWithdrawalFilter } from "Components/Common/GlobalSearchFilter";
 
 
 const MemberWithdrawal = () => {
@@ -278,52 +279,68 @@ const MemberWithdrawal = () => {
       },
       {
         header: "아이디",
-        accessorKey: "email",
+        accessorKey: "customer",
         enableColumnFilter: false,
+        cell: (cell: any) => (
+          <>
+            <div className="d-flex align-items-center">
+              {/* <div className="flex-shrink-0">
+                <img
+                  src={cell.row.original.img}
+                  alt=""
+                  className="avatar-xs rounded-circle"
+                />
+              </div> */}
+              <div className="flex-grow-1 ms-2 name">
+                {cell.getValue()}
+              </div>
+            </div>
+          </>
+        ),
       },
       {
         header: "이름",
         accessorKey: "customer",
         enableColumnFilter: false,
       },
-      {
-        header: "신상",
-        cell: (cellProps: any) => {
-          const customerData = cellProps.row.original;
+      // {
+      //   header: "신상",
+      //   cell: (cellProps: any) => {
+      //     const customerData = cellProps.row.original;
       
-          // Ayol yoki erkaklik ikonini aniqlash
-          const genderIcon = customerData.gender === 'male' ? 'ri-male-fill' : 'ri-female-fill';
+      //     // Ayol yoki erkaklik ikonini aniqlash
+      //     const genderIcon = customerData.gender === 'male' ? 'ri-male-fill' : 'ri-female-fill';
         
-          // Yoshni hisoblash
-          const age = new Date().getFullYear() - new Date(customerData.birthDate).getFullYear();
+      //     // Yoshni hisoblash
+      //     const age = new Date().getFullYear() - new Date(customerData.birthDate).getFullYear();
       
-          return (
-            <table>
-              <tbody>
-                <tr>
-                  <td><i className={`${genderIcon} fs-16 text-primary`} title={customerData.gender || 'nan'}></i></td>
-                  <td>{age || 'nan'}</td>
-                </tr>
-              </tbody>
-            </table>
-          );
-        },
-      },
+      //     return (
+      //       <table>
+      //         <tbody>
+      //           <tr>
+      //             <td><i className={`${genderIcon} fs-16 text-primary`} title={customerData.gender || 'nan'}></i></td>
+      //             <td>{age || 'nan'}</td>
+      //           </tr>
+      //         </tbody>
+      //       </table>
+      //     );
+      //   },
+      // },
       {
         header: "연락처",
         accessorKey: "phone",
         enableColumnFilter: false,
       },
-      {
-        header: "회원그룹",
-        accessorKey: "company",
-        enableColumnFilter: false,
-      },
-      {
-        header: "가입경로",
-        accessorKey: "company",
-        enableColumnFilter: false,
-      },
+      // {
+      //   header: "회원그룹",
+      //   accessorKey: "company",
+      //   enableColumnFilter: false,
+      // },
+      // {
+      //   header: "가입경로",
+      //   accessorKey: "company",
+      //   enableColumnFilter: false,
+      // },
       {
         header: "상태",
         accessorKey: "status",
@@ -350,26 +367,26 @@ const MemberWithdrawal = () => {
         ),
       },
      
-      {
-        header: "수정",
-        cell: (cellProps: any) => {
-          return (
-            <ul className="list-inline hstack gap-2 mb-0">
-              <li className="list-inline-item edit" title="Edit">
-                <Link
-                  to="#"
-                  className="text-primary d-inline-block edit-item-btn"
-                  onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
-                >
+      // {
+      //   header: "수정",
+      //   cell: (cellProps: any) => {
+      //     return (
+      //       <ul className="list-inline hstack gap-2 mb-0">
+      //         <li className="list-inline-item edit" title="Edit">
+      //           <Link
+      //             to="#"
+      //             className="text-primary d-inline-block edit-item-btn"
+      //             onClick={() => { const customerData = cellProps.row.original; handleCustomerClick(customerData); }}
+      //           >
 
-                  <i className="ri-pencil-fill fs-16"></i>
-                </Link>
-              </li>
+      //             <i className="ri-pencil-fill fs-16"></i>
+      //           </Link>
+      //         </li>
              
-            </ul>
-          );
-        },
-      },
+      //       </ul>
+      //     );
+      //   },
+      // },
       {
         header: "삭제",
         cell: (cellProps: any) => {
@@ -424,6 +441,7 @@ const MemberWithdrawal = () => {
             <Col lg={12}>
               <Card id="customerList">
                 <CardHeader className="border-0">
+                <Row>    <CustomersWithdrawalFilter/></Row>
                   <Row className="g-4 align-items-center">
                     <div className="col-sm">
                       <div>
@@ -459,9 +477,9 @@ const MemberWithdrawal = () => {
                       <TableContainer
                         columns={columns}
                         data={(customers || [])}
-                        isGlobalFilter={true}
-                        customPageSize={10}
-                        isCustomerFilter={true}
+                        // isGlobalFilter={true}
+                        // customPageSize={10}
+                        // isCustomerFilter={true}
                         divClass="table-responsive table-card mb-3"
                         tableClass="align-middle table-nowrap"
                         theadClass="table-light text-muted"
